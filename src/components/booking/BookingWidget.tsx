@@ -1,0 +1,364 @@
+"use client";
+
+// src/components/booking/BookingWidget.tsx - ENHANCED with minimum stay validation
+
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import BookingCalendar from './BookingCalendar';
+import BookingForm from './BookingForm';
+import { differenceInDays } from "date-fns";
+import { Users, Check, AlertCircle, Loader2 } from 'lucide-react';
+import { 
+  useRoomData, 
+  useAvailabilityCheck, 
+  useCreateBooking,
+  usePricingCalculation 
+} from '@/hooks/useBooking';
+import { useRoomUnavailableDates } from '@/hooks/useRoomUnavailableDates';
+import type { RoomType } from '@/utils/roomMapping';
+import type { BookingFormData, BookingConfirmation, ConflictType } from '@/types/booking';
+
+interface BookingWidgetProps {
+  roomType: RoomType;
+  roomName: string;
+  capacity: number;
+  className?: string;
+  presetCheckIn?: Date;
+  presetCheckOut?: Date;
+  presetGuests?: number;
+}
+
+// 🆕 ENHANCED: Conflict message generation with minimum stay support
+const generateConflictMessage = (conflicts: ConflictType[]): string => {
+  const bookingConflicts = conflicts.filter(c => c.type === 'booking');
+  const blockedConflicts = conflicts.filter(c => c.type === 'blocked');
+  const minimumStayConflicts = conflicts.filter(c => c.type === 'minimum_stay');
+  
+  const messages: string[] = [];
+  
+  // Handle minimum stay conflicts first (most important)
+  if (minimumStayConflicts.length > 0) {
+    const conflict = minimumStayConflicts[0];
+    if ('required' in conflict && 'nights' in conflict) {
+      return `Minimum stay: ${conflict.required} nights required (${conflict.nights} selected)`;
+    }
+  }
+  
+  if (bookingConflicts.length > 0) {
+    messages.push(`${bookingConflicts.length} existing booking${bookingConflicts.length > 1 ? 's' : ''}`);
+  }
+  
+  if (blockedConflicts.length > 0) {
+    const blockedDates = blockedConflicts.map(c => 'date' in c ? c.date : '').filter(Boolean);
+    messages.push(`${blockedConflicts.length} blocked date${blockedConflicts.length > 1 ? 's' : ''} (${blockedDates.slice(0, 3).join(', ')}${blockedDates.length > 3 ? '...' : ''})`);
+  }
+  
+  return messages.length > 0 ? `Selected dates unavailable: ${messages.join(' and ')}.` : 'Selected dates are not available.';
+};
+
+const BookingWidget: React.FC<BookingWidgetProps> = ({
+  roomType,
+  roomName,
+  capacity,
+  className,
+  presetCheckIn,
+  presetCheckOut,
+  presetGuests
+}) => {
+  // State management (keeping original structure)
+  const [checkIn, setCheckIn] = useState<Date | null>(presetCheckIn || null);
+  const [checkOut, setCheckOut] = useState<Date | null>(presetCheckOut || null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isBookingComplete, setIsBookingComplete] = useState(false);
+  const [bookingConfirmation, setBookingConfirmation] = useState<BookingConfirmation | null>(null);
+  const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+
+  // Hooks (keeping original structure)
+  const { roomData, loading: roomLoading, error: roomError } = useRoomData(roomType);
+  const { unavailableDates, loading: unavailabilityLoading } = useRoomUnavailableDates(roomType);
+  const { checkAvailability, checking } = useAvailabilityCheck();
+  const { createBooking, submitting, error: bookingError } = useCreateBooking();
+  const { calculatePricing, loading: pricingLoading } = usePricingCalculation(roomType);
+
+  // Derived state (keeping original + adding minimum stay)
+  const nights = checkIn && checkOut ? differenceInDays(checkOut, checkIn) : 0;
+  const pricing = calculatePricing(checkIn, checkOut);
+  
+  // 🆕 NEW: Minimum stay validation
+  const minimumStay = roomData?.minimum_stay || 2;
+  const meetsMinimumStay = nights >= minimumStay;
+  
+  const canBook = checkIn && checkOut && nights > 0 && meetsMinimumStay && !availabilityError && roomData && pricing;
+
+  // Availability checking (enhanced with minimum stay awareness)
+  useEffect(() => {
+    const checkDatesAvailability = async () => {
+      if (!checkIn || !checkOut || nights <= 0) {
+        setAvailabilityError(null);
+        return;
+      }
+
+      // Don't check backend availability if minimum stay not met (handle in UI)
+      if (!meetsMinimumStay) {
+        setAvailabilityError(`Minimum stay: ${minimumStay} nights required (${nights} selected)`);
+        return;
+      }
+
+      try {
+        const result = await checkAvailability(roomType, checkIn, checkOut);
+        
+        if (!result.isAvailable) {
+          const errorMessage = result.conflicts && result.conflicts.length > 0 
+            ? generateConflictMessage(result.conflicts)
+            : 'Selected dates are not available for booking.';
+          
+          setAvailabilityError(errorMessage);
+        } else {
+          setAvailabilityError(null);
+        }
+      } catch (error) {
+        console.error('Error checking availability:', error);
+        setAvailabilityError('Unable to check availability. Please try again.');
+      }
+    };
+
+    checkDatesAvailability();
+  }, [checkIn, checkOut, nights, meetsMinimumStay, minimumStay, roomType, checkAvailability]);
+
+  // Event handlers (keeping original structure)
+  const handleBookingStart = () => {
+    if (!canBook) return;
+    setIsBookingOpen(true);
+  };
+
+  const handleBookingComplete = async (formData: BookingFormData) => {
+    if (!checkIn || !checkOut || !pricing) return;
+
+    try {
+      const confirmation = await createBooking(
+        roomType,
+        checkIn,
+        checkOut,
+        formData,
+        pricing
+      );
+
+      if (confirmation) {
+        setBookingConfirmation({
+          ...confirmation,
+          room_name: roomName
+        });
+        setIsBookingComplete(true);
+        setIsBookingOpen(false);
+      }
+    } catch (error) {
+      console.error('Booking submission failed:', error);
+    }
+  };
+
+  const handleNewBooking = () => {
+    setIsBookingComplete(false);
+    setBookingConfirmation(null);
+    setCheckIn(null);
+    setCheckOut(null);
+    setAvailabilityError(null);
+  };
+
+  // Loading state (keeping original)
+  if (roomLoading || pricingLoading) {
+    return (
+      <Card className={className}>
+        <CardContent className="p-6">
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-6 w-6 animate-spin mr-2" />
+            <span className="text-muted-foreground">Loading booking options...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Error state (keeping original)
+  if (roomError) {
+    return (
+      <Card className={className}>
+        <CardContent className="p-6">
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{roomError}</AlertDescription>
+          </Alert>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Booking complete state (keeping original)
+  if (isBookingComplete && bookingConfirmation) {
+    return (
+      <Card className={`${className} border-green-200 bg-green-50`}>
+        <CardContent className="p-6">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto">
+              <Check className="w-8 h-8 text-white" />
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-semibold text-green-800 mb-2">
+                Booking Confirmed!
+              </h3>
+              <p className="text-sm text-green-700 mb-4">
+                Confirmation: <span className="font-mono font-semibold">
+                  {bookingConfirmation.confirmation_number}
+                </span>
+              </p>
+              
+              <div className="bg-white rounded-lg p-4 text-left space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Guest:</span>
+                  <span className="text-sm font-medium">{bookingConfirmation.guest_name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Room:</span>
+                  <span className="text-sm font-medium">{bookingConfirmation.room_name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Total:</span>
+                  <span className="text-sm font-semibold text-green-700">
+                    €{bookingConfirmation.total_price}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <Button onClick={handleNewBooking} variant="outline" size="sm">
+              Book Another Stay
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Main widget interface (keeping original structure)
+  return (
+    <Card className={className}>
+      <CardContent className="p-6">
+        {/* Header section (keeping original) */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-2">
+            <h3 className="text-lg font-semibold">Book Your Stay</h3>
+            {roomData && (
+              <span className="text-sm text-muted-foreground">
+                from €{roomData.base_price}/night
+              </span>
+            )}
+          </div>
+          <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+            <Users className="w-4 h-4" />
+            <span>up to {capacity} guests</span>
+          </div>
+        </div>
+
+        {/* Calendar section (keeping original structure) */}
+        <div className="space-y-4 mb-6">
+          <BookingCalendar
+            checkIn={checkIn}
+            checkOut={checkOut}
+            onCheckInSelect={setCheckIn}
+            onCheckOutSelect={setCheckOut}
+            unavailableDates={unavailableDates}
+            minStay={1}
+          />
+          
+          {/* Nights and pricing display with detailed breakdown */}
+          {checkIn && checkOut && nights > 0 && pricing && (
+            <div className="space-y-3 border-t border-border pt-4">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">
+                  €{Math.round(pricing.basePrice)} avg × {nights} night{nights > 1 ? 's' : ''}
+                </span>
+                <span className="font-medium">€{pricing.roomTotal}</span>
+              </div>
+
+              {pricing.cleaningFee > 0 && (
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">Cleaning fee</span>
+                  <span className="font-medium">€{pricing.cleaningFee}</span>
+                </div>
+              )}
+
+              <div className="flex justify-between items-center pt-3 border-t border-border">
+                <span className="font-semibold">Total</span>
+                <span className="font-bold">€{pricing.totalPrice}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Error messages (enhanced with minimum stay) */}
+        {availabilityError && (
+          <Alert className="mb-4" variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{availabilityError}</AlertDescription>
+          </Alert>
+        )}
+
+        {bookingError && (
+          <Alert className="mb-4" variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{bookingError}</AlertDescription>
+          </Alert>
+        )}
+
+        {/* Booking button (keeping original structure + minimum stay logic) */}
+        <Button
+          onClick={handleBookingStart}
+          disabled={!canBook || checking || pricingLoading}
+          variant="terracotta"
+          className="w-full mb-2"
+        >
+          {checking ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Checking...
+            </>
+          ) : !checkIn || !checkOut ? (
+            'Select Dates'
+          ) : nights <= 0 ? (
+            'Invalid Dates'
+          ) : !meetsMinimumStay ? (
+            `Minimum ${minimumStay} nights required`
+          ) : availabilityError ? (
+            'Dates Unavailable'
+          ) : (
+            `Reserve for €${pricing?.totalPrice || 0}`
+          )}
+        </Button>
+
+        <p className="text-xs text-center text-muted-foreground">
+          You won't be charged yet
+        </p>
+      </CardContent>
+
+      {/* Booking dialog (keeping original) */}
+      <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Complete Your Booking</DialogTitle>
+          </DialogHeader>
+          
+          <BookingForm
+            nights={nights}
+            totalPrice={pricing?.totalPrice || 0}
+            onComplete={handleBookingComplete}
+          />
+        </DialogContent>
+      </Dialog>
+    </Card>
+  );
+};
+
+export default BookingWidget;

@@ -1,0 +1,17 @@
+import HeroSection from "@/components/home/HeroSection";
+import RoomsPreview from "@/components/home/RoomsPreview";
+import CompetitiveAdvantages from "@/components/home/CompetitiveAdvantages";
+import FeaturesPreview from "@/components/home/FeaturesPreview";
+import CallToAction from "@/components/home/CallToAction";
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-background pb-20 md:pb-0" role="main" aria-label="Terrazza Santa Chiara B&B homepage">
+      <HeroSection />
+      <RoomsPreview />
+      <CompetitiveAdvantages />
+      <FeaturesPreview />
+      <CallToAction />
+    </main>
+  );
+}
