@@ -57,10 +57,18 @@ export function getFAQSchema() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'How far is Terrazza Santa Chiara from the Basilica?',
+        name: 'Where is Terrazza Santa Chiara located?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Terrazza Santa Chiara is located just 30 meters from the Basilica di Santa Chiara in Assisi, in the heart of the historic center.'
+          text: 'Terrazza Santa Chiara is a charming B&B located in the historic center of Assisi, Umbria, Italy. It is situated just 30 meters from the Basilica di Santa Chiara, offering guests an authentic experience in the heart of medieval Assisi.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does a room cost?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Room prices at Terrazza Santa Chiara start from €70 per night. The Garden Room and Terrace Apartment start from €70, while the Stone Vault Apartment and Contemporary Luxury Apartment start from €90 per night. Prices vary depending on the season and length of stay.'
         }
       },
       {
@@ -68,23 +76,31 @@ export function getFAQSchema() {
         name: 'What is the check-in and check-out time?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Check-in is from 3:00 PM and check-out is by 11:00 AM. Early check-in or late check-out may be available upon request.'
+          text: 'Check-in is from 3:00 PM and check-out is by 11:00 AM. Early check-in or late check-out may be available upon request, subject to availability.'
         }
       },
       {
         '@type': 'Question',
-        name: 'How much does a room cost at Terrazza Santa Chiara?',
+        name: 'How far is Terrazza Santa Chiara from Basilica di Santa Chiara?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Room prices at Terrazza Santa Chiara range from €80 to €150 per night, depending on the room type and season. The Garden Room starts at €80, while the Panoramic Terrace Apartment is €150 per night.'
+          text: 'Terrazza Santa Chiara is located just 30 meters from the Basilica di Santa Chiara, making it one of the closest accommodations to this important religious site in Assisi.'
         }
       },
       {
         '@type': 'Question',
-        name: 'What amenities are available?',
+        name: 'How far is Terrazza Santa Chiara from Basilica di San Francesco?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'All rooms feature free WiFi, air conditioning, luxury linens, and modern amenities. Some rooms include full kitchens, private terraces, and historic 13th-century architecture.'
+          text: 'The Basilica di San Francesco is approximately a 10-minute walk from Terrazza Santa Chiara through the charming streets of historic Assisi.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How far is Terrazza Santa Chiara from the Sanctuary of Carlo Acutis?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The Sanctuary of Carlo Acutis (Santuario della Spogliazione at Vescovado) is just a 4-minute walk from Terrazza Santa Chiara, making it easily accessible for pilgrims visiting this important spiritual site.'
         }
       }
     ]
