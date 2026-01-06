@@ -361,7 +361,7 @@ const Contact = () => {
                     <div key={index} className="flex items-start gap-4 p-4 bg-stone-light/30 rounded-lg hover:bg-stone-light/50 transition-colors cursor-pointer">
                       <method.icon className="w-5 h-5 text-sage mt-1 shrink-0" />
                       <div className="flex-1">
-                        <h3 className="font-semibold text-sage">{method.title}</h3>
+                        <h2 className="font-semibold text-sage">{method.title}</h2>
                         <p className="text-muted-foreground text-sm">{method.details}</p>
                         <span className="text-xs text-sage hover:text-sage/80">{method.action}</span>
                       </div>
@@ -388,10 +388,10 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="font-semibold text-sage mb-3 flex items-center gap-2">
+                    <h2 className="font-semibold text-sage mb-3 flex items-center gap-2">
                       <Car className="w-5 h-5" />
                       Walking Directions
-                    </h3>
+                    </h2>
                     {walkingDirections.map((direction, index) => (
                       <div key={index} className="border-l-2 border-sage-light pl-4">
                         <p className="font-medium">{direction.from}</p>
@@ -413,10 +413,10 @@ const Contact = () => {
                 <CardContent className="space-y-6">
                   {localRecommendations.map((category, index) => (
                     <div key={index}>
-                      <h3 className="font-semibold text-sage mb-3 flex items-center gap-2">
+                      <h2 className="font-semibold text-sage mb-3 flex items-center gap-2">
                         <category.icon className="w-5 h-5" />
                         {category.category}
-                      </h3>
+                      </h2>
                       <div className="grid grid-cols-1 gap-2">
                         {category.items.map((item, itemIndex) => (
                           <div key={itemIndex} className="flex items-center gap-2 text-sm text-muted-foreground">

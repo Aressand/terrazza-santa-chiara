@@ -65,7 +65,7 @@ export default function TerraceApartment() {
         />
         <div className="absolute inset-0 bg-stone/40" />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-playfair mb-4">Garden Room Sanctuary</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-playfair mb-4">Panoramic Terrace Apartment</h1>
           <p className="text-lg md:text-xl lg:text-2xl">Perfect for 2 guests</p>
         </div>
 
