@@ -17,7 +17,7 @@ const gardenRoomBathroom = "/images/garden-room-bathroom.jpg";
 const gardenRoomDetails = "/images/garden-room-details.jpg";
 const gardenRoomView = "/images/garden-room-view.jpg";
 
-export default function GardenRoom() {
+export default function GardenRoom({ params }: { params: Promise<{ lang: string }> }) {
   const [selectedImage, setSelectedImage] = useState(0);
   const searchParams = useSearchParams();
 

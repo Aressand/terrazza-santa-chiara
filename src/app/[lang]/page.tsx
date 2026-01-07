@@ -6,7 +6,10 @@ import CallToAction from "@/components/home/CallToAction";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getLodgingBusinessSchema, getFAQSchema } from "@/lib/seo/schemas";
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+  // Await params to satisfy Next.js async params requirement
+  await params;
+
   return (
     <>
       <JsonLd data={getLodgingBusinessSchema()} />

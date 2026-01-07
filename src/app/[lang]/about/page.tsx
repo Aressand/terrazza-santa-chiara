@@ -8,7 +8,7 @@ import MobileOptimizedImage from "@/components/MobileOptimizedImage";
 // Image paths
 const assisiHeroBg = "/images/assisi-hero-bg.jpg";
 
-const About = () => {
+const About = ({ params }: { params: Promise<{ lang: string }> }) => {
   const policies = [
     {
       icon: Clock,

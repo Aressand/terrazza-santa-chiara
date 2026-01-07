@@ -11,13 +11,13 @@ import BookingWidget from "@/components/booking/BookingWidget";
 import MobileOptimizedImage from "@/components/MobileOptimizedImage";
 
 // Image paths
-const terraceHero = "/images/terrace-apartment.jpg";
-const gardenRoomInterior = "/images/garden-room-interior.jpg";
-const gardenRoomBathroom = "/images/garden-room-bathroom.jpg";
-const gardenRoomDetails = "/images/garden-room-details.jpg";
-const gardenRoomView = "/images/garden-room-view.jpg";
+const modernHero = "/images/modern-apartment.jpg";
+const modernInterior = "/images/modern-apartment-interior.jpg";
+const modernBathroom = "/images/modern-apartment-bathroom.jpg";
+const modernKitchen = "/images/modern-apartment-kitchen.jpg";
+const modernBedroom = "/images/modern-apartment-bedroom.jpg";
 
-export default function TerraceApartment() {
+export default function ModernApartment({ params }: { params: Promise<{ lang: string }> }) {
   const [selectedImage, setSelectedImage] = useState(0);
   const searchParams = useSearchParams();
 
@@ -36,21 +36,21 @@ export default function TerraceApartment() {
   const totalPrice = nights > 0 ? 95 * nights + 25 : 0; // €95/night + €25 cleaning fee
 
   const galleryImages = [
-    { src: terraceHero, alt: "Panoramic terrace with valley views" },
-    { src: gardenRoomInterior, alt: "Terrace apartment interior" },
-    { src: gardenRoomBathroom, alt: "Modern bathroom" },
-    { src: gardenRoomView, alt: "Sunset views from terrace" },
-    { src: gardenRoomDetails, alt: "Kitchen and living area" },
-    { src: terraceHero, alt: "Evening terrace ambiance" }
+    { src: modernHero, alt: "Contemporary luxury apartment" },
+    { src: modernInterior, alt: "Modern living space" },
+    { src: modernBathroom, alt: "Spacious bathroom with emotional lighting" },
+    { src: modernKitchen, alt: "Modern kitchen area" },
+    { src: modernBedroom, alt: "Contemporary bedroom" },
+    { src: modernHero, alt: "Modern apartment interior" }
   ];
 
   const amenities = [
-    "Sunset terrace with valley views",
-    "Full kitchen for romantic dinners",
-    "Independent entrance for privacy",
-    "Lightning-fast WiFi for sharing memories",
-    "Freshly laundered luxury linens",
-    "Coffee & tea making facilities"
+    "Recently renovated with contemporary design",
+    "Spacious bathroom with emotional lighting",
+    "Full modern kitchen with all appliances",
+    "King bed + queen sofa bed (sleeps 4)",
+    "Lightning-fast WiFi for remote work",
+    "Contemporary furnishing & smart features"
   ];
 
   return (
@@ -58,15 +58,15 @@ export default function TerraceApartment() {
       {/* Hero Image */}
       <section className="relative h-[60vh] overflow-hidden">
         <MobileOptimizedImage
-          src={terraceHero}
-          alt="Garden Room Sanctuary with private rooftop garden and Assisi views"
+          src={modernHero}
+          alt="Contemporary Luxury Apartment with modern design and emotional lighting"
           className="w-full h-full object-cover"
           priority={true}
         />
         <div className="absolute inset-0 bg-stone/40" />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-playfair mb-4">Panoramic Terrace Apartment</h1>
-          <p className="text-lg md:text-xl lg:text-2xl">Perfect for 2 guests</p>
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-playfair mb-4">Contemporary Luxury Apartment</h1>
+          <p className="text-lg md:text-xl lg:text-2xl">Perfect for up to 4 guests</p>
         </div>
 
         {/* Back Navigation */}
@@ -126,21 +126,13 @@ export default function TerraceApartment() {
               <div className="space-y-8">
                 <div>
                   <h2 className="text-3xl lg:text-4xl font-playfair text-sage mb-4">
-                    Your Private Sunset Sanctuary
+                    Your Contemporary Urban Retreat
                   </h2>
                   <p className="text-xl text-sage/80 mb-6">
-                    Experience Assisi's most breathtaking sunsets from your private panoramic terrace
+                    Perfect for families and groups seeking modern comfort
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    Experience Assisi's most breathtaking sunsets from your private panoramic terrace.
-                    This romantic apartment features a full kitchen for intimate dinners, an independent
-                    entrance for complete privacy, and unobstructed valley views that stretch to the horizon.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed mt-4">
-                    Located in the historic center just steps from Santa Chiara Basilica, you'll enjoy
-                    the perfect blend of authentic medieval atmosphere and modern luxury amenities.
-                    The apartment's elevated position provides a peaceful retreat while keeping you
-                    connected to Assisi's spiritual heart.
+                    Experience the perfect blend of historic Assisi charm and contemporary luxury. Our recently renovated apartment features emotional lighting, a king-size bed plus queen sofa bed, and a full modern kitchen. The spacious bathroom with sophisticated lighting creates an ambiance of pure relaxation. Ideal for remote workers and families, this contemporary space offers all modern comforts while immersing you in Assisi's timeless atmosphere.
                   </p>
                 </div>
 
@@ -150,23 +142,23 @@ export default function TerraceApartment() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-muted-foreground">
                     <div className="flex justify-between border-b border-border pb-2">
                       <span>Size:</span>
-                      <span className="font-medium">Full apartment + terrace</span>
+                      <span className="font-medium">Full luxury apartment</span>
                     </div>
                     <div className="flex justify-between border-b border-border pb-2">
-                      <span>Bed:</span>
-                      <span className="font-medium">Queen size luxury mattress</span>
+                      <span>Beds:</span>
+                      <span className="font-medium">King bed + queen sofa bed</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <span>Bathroom:</span>
+                      <span className="font-medium">Spacious with emotional lighting</span>
                     </div>
                     <div className="flex justify-between border-b border-border pb-2">
                       <span>Kitchen:</span>
-                      <span className="font-medium">Full equipped kitchen</span>
+                      <span className="font-medium">Full modern kitchen</span>
                     </div>
                     <div className="flex justify-between border-b border-border pb-2">
-                      <span>Terrace:</span>
-                      <span className="font-medium">Private panoramic terrace</span>
-                    </div>
-                    <div className="flex justify-between border-b border-border pb-2">
-                      <span>View:</span>
-                      <span className="font-medium">Unobstructed valley views</span>
+                      <span>Capacity:</span>
+                      <span className="font-medium">Up to 4 guests</span>
                     </div>
                   </div>
                 </div>
@@ -189,9 +181,9 @@ export default function TerraceApartment() {
             {/* Booking Widget */}
             <div className="lg:col-span-1">
               <BookingWidget
-                roomType="terrace"
-                roomName="Panoramic Terrace Apartment"
-                capacity={2}
+                roomType="modern"
+                roomName="Contemporary Luxury Apartment"
+                capacity={4}
                 presetCheckIn={presetCheckIn}
                 presetCheckOut={presetCheckOut}
                 presetGuests={presetGuests}

@@ -17,7 +17,7 @@ const stoneVaultBathroom = "/images/stone-vault-bathroom.jpg";
 const stoneVaultKitchen = "/images/stone-vault-kitchen.jpg";
 const stoneVaultVaults = "/images/stone-vault-details.jpg";
 
-export default function StoneVaultApartment() {
+export default function StoneVaultApartment({ params }: { params: Promise<{ lang: string }> }) {
   const [selectedImage, setSelectedImage] = useState(0);
   const searchParams = useSearchParams();
 

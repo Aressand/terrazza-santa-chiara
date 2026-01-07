@@ -1,0 +1,42 @@
+{
+  "common": {
+    "bookNow": "Prenota Ora",
+    "learnMore": "Scopri di più",
+    "backToHome": "Torna alla Home",
+    "rooms": "Camere",
+    "about": "Chi Siamo",
+    "contact": "Contatti"
+  },
+  "home": {
+    "hero": {
+      "title": "Terrazza Santa Chiara",
+      "subtitle": "Il tuo rifugio nel cuore di Assisi"
+    }
+  },
+  "rooms": {
+    "garden": {
+      "name": "Garden Room Sanctuary",
+      "description": "..."
+    },
+    "terrace": {
+      "name": "Panoramic Terrace Apartment",
+      "description": "..."
+    },
+    "stoneVault": {
+      "name": "Historic Stone Vault Apartment",
+      "description": "..."
+    },
+    "modern": {
+      "name": "Contemporary Luxury Apartment",
+      "description": "..."
+    }
+  },
+  "booking": {
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Ospiti",
+    "totalPrice": "Prezzo totale",
+    "perNight": "a notte",
+    "nights": "notti"
+  }
+}

@@ -16,7 +16,7 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/ui/use-toast";
 
-const Contact = () => {
+const Contact = ({ params }: { params: Promise<{ lang: string }> }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -264,7 +264,7 @@ const Contact = () => {
                             mode="single"
                             selected={formData.checkOut}
                             onSelect={(date) => handleInputChange('checkOut', date)}
-                            disabled={(date) => date < new Date() || (formData.checkIn && date <= formData.checkIn)}
+                            disabled={(date) => date < new Date() || !!(formData.checkIn && date <= formData.checkIn)}
                             initialFocus
                             className="p-3 pointer-events-auto"
                           />
