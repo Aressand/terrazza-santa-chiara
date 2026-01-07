@@ -77,7 +77,7 @@ const checkExistingBookings = async (
 
   if (error) throw error;
 
-  return (bookingConflicts || []).map(booking => ({
+  return (bookingConflicts || []).map((booking: any) => ({
     type: 'booking' as const,
     check_in: booking.check_in,
     check_out: booking.check_out,

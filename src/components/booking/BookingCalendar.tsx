@@ -141,13 +141,15 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
                 mode="single"
                 selected={selectionMode === 'check-in' ? checkIn : checkOut}
                 onSelect={handleDateSelect}
-                disabled={(date) =>
-                  date < new Date() ||
-                  isDateUnavailable(date) ||
-                  date > addDays(new Date(), 365) ||
-                  (selectionMode === 'check-out' && checkIn && date <= checkIn) ||
-                  (selectionMode === 'check-out' && checkIn && date < addDays(checkIn, minStay))
-                }
+                disabled={(date) => {
+                  return (
+                    date < new Date() ||
+                    isDateUnavailable(date) ||
+                    date > addDays(new Date(), 365) ||
+                    !!(selectionMode === 'check-out' && checkIn && date <= checkIn) ||
+                    !!(selectionMode === 'check-out' && checkIn && date < addDays(checkIn, minStay))
+                  );
+                }}
                 weekStartsOn={1}
                 initialFocus
                 className="pointer-events-auto"

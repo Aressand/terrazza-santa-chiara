@@ -2,7 +2,7 @@
 
 // src/components/admin/ICalSyncTester.tsx
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -57,7 +57,7 @@ const ICalSyncTester = () => {
   };
 
   const handleValidateUrl = async () => {
-    const url = selectedUrlType === 'test-custom' ? customUrl : TEST_ICAL_URLS[selectedUrlType];
+    const url = selectedUrlType === 'test-custom' ? customUrl : TEST_ICAL_URLS[selectedUrlType as keyof typeof TEST_ICAL_URLS];
     if (!url) {
       addTestResult('Please enter a URL to validate', 'error');
       return;
@@ -78,7 +78,7 @@ const ICalSyncTester = () => {
       return;
     }
 
-    const url = selectedUrlType === 'test-custom' ? customUrl : TEST_ICAL_URLS[selectedUrlType];
+    const url = selectedUrlType === 'test-custom' ? customUrl : TEST_ICAL_URLS[selectedUrlType as keyof typeof TEST_ICAL_URLS];
     if (!url) {
       addTestResult('Please enter a calendar URL', 'error');
       return;

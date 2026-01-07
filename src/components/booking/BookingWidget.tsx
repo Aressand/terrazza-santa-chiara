@@ -265,10 +265,10 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
         {/* Calendar section (keeping original structure) */}
         <div className="space-y-4 mb-6">
           <BookingCalendar
-            checkIn={checkIn}
-            checkOut={checkOut}
-            onCheckInSelect={setCheckIn}
-            onCheckOutSelect={setCheckOut}
+            checkIn={checkIn ?? undefined}
+            checkOut={checkOut ?? undefined}
+            onCheckInSelect={(date) => setCheckIn(date ?? null)}
+            onCheckOutSelect={(date) => setCheckOut(date ?? null)}
             unavailableDates={unavailableDates}
             minStay={1}
           />

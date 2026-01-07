@@ -11,9 +11,18 @@ import { CheckCircle, XCircle, Loader2, AlertCircle, Play, Database, Download, F
 // IMPORTA IL TUO VERO HOOK QUI
 import { useICalSync } from '@/hooks/useICalSync';
 
+interface TestResult {
+  id: number;
+  testName: string;
+  status: string;
+  message: string;
+  data: any;
+  timestamp: string;
+}
+
 const ICalHookTester = () => {
-  const [testResults, setTestResults] = useState([]);
-  const [currentTest, setCurrentTest] = useState(null);
+  const [testResults, setTestResults] = useState<TestResult[]>([]);
+  const [currentTest, setCurrentTest] = useState<string | null>(null);
   const [testUrl, setTestUrl] = useState('https://calendar.google.com/calendar/ical/en.italian%23holiday%40group.v.calendar.google.com/public/basic.ics');
 
   // QUESTO È IL TUO VERO HOOK - non più mock!
@@ -30,7 +39,7 @@ const ICalHookTester = () => {
     progress
   } = useICalSync();
 
-  const addResult = (testName, status, message, data = null) => {
+  const addResult = (testName: string, status: string, message: string, data: any = null) => {
     const result = {
       id: Date.now(),
       testName,
@@ -42,7 +51,7 @@ const ICalHookTester = () => {
     setTestResults(prev => [...prev, result]);
   };
 
-  const updateLastResult = (status, message, data = null) => {
+  const updateLastResult = (status: string, message: string, data: any = null) => {
     setTestResults(prev => {
       const updated = [...prev];
       if (updated.length > 0) {
@@ -70,7 +79,8 @@ const ICalHookTester = () => {
         { canAccess }
       );
     } catch (error) {
-      updateLastResult('error', `Database error: ${error.message}`, { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      updateLastResult('error', `Database error: ${errorMessage}`, { error: errorMessage });
     }
     setCurrentTest(null);
   };
@@ -88,7 +98,8 @@ const ICalHookTester = () => {
         { configs, count: configs.length }
       );
     } catch (error) {
-      updateLastResult('error', `Config error: ${error.message}`, { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      updateLastResult('error', `Config error: ${errorMessage}`, { error: errorMessage });
     }
     setCurrentTest(null);
   };
@@ -119,7 +130,8 @@ const ICalHookTester = () => {
         }
       );
     } catch (error) {
-      updateLastResult('error', `Download failed: ${error.message}`, { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      updateLastResult('error', `Download failed: ${errorMessage}`, { error: errorMessage });
     }
     setCurrentTest(null);
   };
@@ -155,7 +167,8 @@ END:VCALENDAR`;
         { events, sampleEventsCount: events.length }
       );
     } catch (error) {
-      updateLastResult('error', `Parse error: ${error.message}`, { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      updateLastResult('error', `Parse error: ${errorMessage}`, { error: errorMessage });
     }
     setCurrentTest(null);
   };
@@ -173,7 +186,8 @@ END:VCALENDAR`;
         { status }
       );
     } catch (error) {
-      updateLastResult('error', `Status error: ${error.message}`, { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      updateLastResult('error', `Status error: ${errorMessage}`, { error: errorMessage });
     }
     setCurrentTest(null);
   };
@@ -191,7 +205,8 @@ END:VCALENDAR`;
         { result }
       );
     } catch (error) {
-      updateLastResult('error', `Full sync error: ${error.message}`, { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      updateLastResult('error', `Full sync error: ${errorMessage}`, { error: errorMessage });
     }
     setCurrentTest(null);
   };
@@ -219,7 +234,7 @@ END:VCALENDAR`;
 
   const clearResults = () => setTestResults([]);
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending': return <Loader2 className="w-4 h-4 animate-spin text-blue-500" />;
       case 'success': return <CheckCircle className="w-4 h-4 text-green-500" />;
