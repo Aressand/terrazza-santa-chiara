@@ -14,7 +14,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import { toast } from "@/components/ui/use-toast";
 
 const Contact = ({ params }: { params: Promise<{ lang: string }> }) => {
   const [formData, setFormData] = useState({
@@ -44,10 +43,8 @@ const Contact = ({ params }: { params: Promise<{ lang: string }> }) => {
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    toast({
-      title: "Inquiry Sent Successfully!",
-      description: "We'll respond to your message within 24 hours.",
-    });
+    // TODO: Add toast notification
+    alert("Inquiry Sent Successfully! We'll respond to your message within 24 hours.");
 
     // Reset form
     setFormData({

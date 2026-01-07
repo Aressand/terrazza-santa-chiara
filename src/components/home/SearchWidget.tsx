@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { format } from "date-fns";
 import { CalendarIcon, Users, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -126,7 +126,7 @@ const SearchWidget = () => {
                 }}
                 disabled={(date) =>
                   isDateDisabled(date) ||
-                  (checkIn && date <= checkIn)
+                  !!(checkIn && date <= checkIn)
                 }
                 weekStartsOn={1}
                 initialFocus

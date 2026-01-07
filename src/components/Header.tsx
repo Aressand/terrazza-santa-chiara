@@ -1,15 +1,26 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, Phone, Globe } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Menu, Phone, Globe } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [language, setLanguage] = useState('EN');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Extract current locale from pathname
+  const currentLocale = pathname.split('/')[1] as 'it' | 'en';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,15 +30,26 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Navigation items with dynamic language prefix
   const navigationItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Rooms', href: '/#rooms' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' }
+    { label: 'Home', href: `/${currentLocale}` },
+    { label: 'Rooms', href: `/${currentLocale}#rooms` },
+    { label: 'About', href: `/${currentLocale}/about` },
+    { label: 'Contact', href: `/${currentLocale}/contact` }
   ];
 
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'EN' ? 'IT' : 'EN');
+  // Language switcher configuration
+  const languages = [
+    { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+    { code: 'en', label: 'English', flag: '🇬🇧' }
+  ] as const;
+
+  const handleLanguageSwitch = (newLocale: 'it' | 'en') => {
+    // Replace the first segment (current locale) with the new locale
+    const segments = pathname.split('/');
+    segments[1] = newLocale;
+    const newPath = segments.join('/');
+    router.push(newPath);
   };
 
   return (
@@ -44,7 +66,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link
-              href="/"
+              href={`/${currentLocale}`}
               className="group flex flex-col leading-none hover-glow transition-all duration-300"
             >
               <span className="font-playfair font-semibold text-2xl lg:text-3xl text-stone-dark group-hover:text-terracotta transition-colors duration-300">
@@ -59,7 +81,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navigationItems.map((item) => (
-              item.href.startsWith('/#') ? (
+              item.href.includes('#') ? (
                 <a
                   key={item.label}
                   href={item.href}
@@ -84,17 +106,36 @@ const Header = () => {
           {/* Desktop Right Section */}
           <div className="hidden lg:flex items-center space-x-6">
 
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-stone hover:bg-stone-dark text-stone-dark hover:text-background transition-all duration-300"
-            >
-              <Globe size={16} />
-              <span className="font-medium text-sm">{language}</span>
-              <span className="text-xs opacity-70">
-                {language === 'EN' ? '🇺🇸' : '🇮🇹'}
-              </span>
-            </button>
+            {/* Language Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-stone hover:bg-stone-dark text-stone-dark hover:text-background transition-all duration-300">
+                  <Globe size={16} />
+                  <span className="font-medium text-sm">
+                    {currentLocale.toUpperCase()}
+                  </span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-[160px]">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => handleLanguageSwitch(lang.code)}
+                    className={`cursor-pointer ${
+                      currentLocale === lang.code
+                        ? 'bg-stone/20 font-semibold'
+                        : ''
+                    }`}
+                  >
+                    <span className="mr-2">{lang.flag}</span>
+                    <span>{lang.label}</span>
+                    {currentLocale === lang.code && (
+                      <span className="ml-auto text-terracotta">✓</span>
+                    )}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Phone Number */}
             <a
@@ -152,7 +193,7 @@ const Header = () => {
                   <nav className="flex-1 py-8">
                     <div className="space-y-6">
                       {navigationItems.map((item, index) => (
-                        item.href.startsWith('/#') ? (
+                        item.href.includes('#') ? (
                           <a
                             key={item.label}
                             href={item.href}
@@ -180,22 +221,40 @@ const Header = () => {
                   {/* Mobile Footer */}
                   <div className="border-t border-border pt-6 space-y-4">
 
-                    {/* Language Toggle */}
-                    <button
-                      onClick={toggleLanguage}
-                      className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-stone hover:bg-stone-dark text-stone-dark hover:text-background transition-all duration-300"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <Globe size={18} />
-                        <span className="font-medium">Language</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="font-semibold">{language}</span>
-                        <span className="text-lg">
-                          {language === 'EN' ? '🇺🇸' : '🇮🇹'}
-                        </span>
-                      </div>
-                    </button>
+                    {/* Language Dropdown */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-stone hover:bg-stone-dark text-stone-dark hover:text-background transition-all duration-300">
+                          <div className="flex items-center space-x-2">
+                            <Globe size={18} />
+                            <span className="font-medium">Language</span>
+                          </div>
+                          <span className="font-semibold">{currentLocale.toUpperCase()}</span>
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="min-w-[160px]">
+                        {languages.map((lang) => (
+                          <DropdownMenuItem
+                            key={lang.code}
+                            onClick={() => {
+                              handleLanguageSwitch(lang.code);
+                              setIsMobileMenuOpen(false);
+                            }}
+                            className={`cursor-pointer ${
+                              currentLocale === lang.code
+                                ? 'bg-stone/20 font-semibold'
+                                : ''
+                            }`}
+                          >
+                            <span className="mr-2">{lang.flag}</span>
+                            <span>{lang.label}</span>
+                            {currentLocale === lang.code && (
+                              <span className="ml-auto text-terracotta">✓</span>
+                            )}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
 
                     {/* Mobile CTA */}
                     <Button
