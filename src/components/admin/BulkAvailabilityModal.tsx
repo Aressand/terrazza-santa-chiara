@@ -201,8 +201,8 @@ const BulkAvailabilityModal: React.FC<BulkAvailabilityModalProps> = ({
                     mode="single"
                     selected={endDate}
                     onSelect={setEndDate}
-                    disabled={(date) => 
-                      date < new Date() || (startDate && date < startDate)
+                    disabled={(date) =>
+                      date < new Date() || (startDate ? date < startDate : false)
                     }
                     weekStartsOn={1}
                     initialFocus
