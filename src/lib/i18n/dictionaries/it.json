@@ -507,5 +507,42 @@
       "termsOfService": "Termini di Servizio"
     },
     "copyright": "© 2026 Terrazza Santa Chiara - Tutti i diritti riservati"
+  },
+  "seo": {
+    "siteName": "Terrazza Santa Chiara",
+    "home": {
+      "title": "Terrazza Santa Chiara | B&B nel Centro Storico di Assisi",
+      "description": "Soggiorna a 30 metri dalla Basilica di Santa Chiara. 4 alloggi unici con terrazze panoramiche nel cuore medievale di Assisi."
+    },
+    "about": {
+      "title": "Chi Siamo | Terrazza Santa Chiara Assisi",
+      "description": "Scopri la storia di Terrazza Santa Chiara, l'unico B&B a 30m dalla Basilica di Santa Chiara nel centro storico di Assisi."
+    },
+    "contact": {
+      "title": "Contatti | Terrazza Santa Chiara Assisi",
+      "description": "Contattaci per prenotare il tuo soggiorno ad Assisi. Rispondiamo entro 24 ore. Telefono, email e WhatsApp disponibili."
+    },
+    "rooms": {
+      "listing": {
+        "title": "Le Nostre Camere | Terrazza Santa Chiara Assisi",
+        "description": "4 alloggi unici nel centro di Assisi: Garden Room, Terrazza Panoramica, Volta in Pietra, Lusso Contemporaneo."
+      },
+      "garden": {
+        "title": "Garden Room Sanctuary | Terrazza Santa Chiara Assisi",
+        "description": "Camera con giardino privato sul tetto a 30m dalla Basilica di Santa Chiara. Perfetta per coppie, vista su Assisi."
+      },
+      "terrace": {
+        "title": "Appartamento Terrazza Panoramica | Terrazza Santa Chiara",
+        "description": "Appartamento con terrazza e vista sulla vallata umbra. Cucina completa, ingresso indipendente, tramonti mozzafiato."
+      },
+      "stoneVault": {
+        "title": "Appartamento Volta in Pietra | Terrazza Santa Chiara",
+        "description": "Vivi in un autentico appartamento medievale con volte del XIII secolo. Fino a 4 ospiti, cucina completa."
+      },
+      "modern": {
+        "title": "Appartamento Lusso Contemporaneo | Terrazza Santa Chiara",
+        "description": "Appartamento moderno recentemente ristrutturato. Design contemporaneo, illuminazione emozionale, fino a 4 ospiti."
+      }
+    }
   }
 }

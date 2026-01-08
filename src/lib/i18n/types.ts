@@ -390,6 +390,7 @@ export type Dictionary = {
       };
     };
   };
+  seo: SeoTranslations;
 };
 
 export type RoomTranslations = {
@@ -403,4 +404,23 @@ export type RoomTranslations = {
   details: Record<string, string>;
   amenities: string[];
   gallery: Record<string, string>;
+};
+
+export type SeoPageMeta = {
+  title: string;
+  description: string;
+};
+
+export type SeoTranslations = {
+  siteName: string;
+  home: SeoPageMeta;
+  about: SeoPageMeta;
+  contact: SeoPageMeta;
+  rooms: {
+    listing: SeoPageMeta;
+    garden: SeoPageMeta;
+    terrace: SeoPageMeta;
+    stoneVault: SeoPageMeta;
+    modern: SeoPageMeta;
+  };
 };

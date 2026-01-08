@@ -507,5 +507,42 @@
       "termsOfService": "Terms of Service"
     },
     "copyright": "© 2026 Terrazza Santa Chiara - All rights reserved"
+  },
+  "seo": {
+    "siteName": "Terrazza Santa Chiara",
+    "home": {
+      "title": "Terrazza Santa Chiara | B&B in Historic Assisi Center",
+      "description": "Stay 30 meters from Santa Chiara Basilica. 4 unique accommodations with panoramic terraces in medieval Assisi, Italy."
+    },
+    "about": {
+      "title": "About Us | Terrazza Santa Chiara Assisi",
+      "description": "Discover Terrazza Santa Chiara, the only B&B just 30m from Santa Chiara Basilica in the historic heart of Assisi."
+    },
+    "contact": {
+      "title": "Contact Us | Terrazza Santa Chiara Assisi",
+      "description": "Contact us to book your stay in Assisi. We respond within 24 hours. Phone, email and WhatsApp available."
+    },
+    "rooms": {
+      "listing": {
+        "title": "Our Rooms | Terrazza Santa Chiara Assisi",
+        "description": "4 unique accommodations in central Assisi: Garden Room, Panoramic Terrace, Stone Vault, Contemporary Luxury."
+      },
+      "garden": {
+        "title": "Garden Room Sanctuary | Terrazza Santa Chiara Assisi",
+        "description": "Room with private rooftop garden 30m from Santa Chiara Basilica. Perfect for couples, views over Assisi."
+      },
+      "terrace": {
+        "title": "Panoramic Terrace Apartment | Terrazza Santa Chiara",
+        "description": "Apartment with terrace and Umbrian valley views. Full kitchen, independent entrance, stunning sunsets."
+      },
+      "stoneVault": {
+        "title": "Historic Stone Vault Apartment | Terrazza Santa Chiara",
+        "description": "Live in an authentic medieval apartment with 13th century vaults. Sleeps 4, full kitchen included."
+      },
+      "modern": {
+        "title": "Contemporary Luxury Apartment | Terrazza Santa Chiara",
+        "description": "Recently renovated modern apartment. Contemporary design, emotional lighting, sleeps up to 4 guests."
+      }
+    }
   }
 }

@@ -7,7 +7,9 @@
       "Bash(netstat:*)",
       "Bash(findstr:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(tasklist:*)",
+      "Bash(git push:*)"
     ]
   }
 }

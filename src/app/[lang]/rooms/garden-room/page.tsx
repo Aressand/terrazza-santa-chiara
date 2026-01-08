@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n/getDictionary";
 import type { Locale } from "@/lib/i18n/config";
 import RoomDetailClient from "@/components/rooms/RoomDetailClient";
@@ -15,11 +16,35 @@ const images = {
   ],
 };
 
-export default async function GardenRoomPage({
-  params,
-}: {
+type Props = {
   params: Promise<{ lang: string }>;
-}) {
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang } = await params;
+  const dict = await getDictionary(lang as Locale);
+
+  return {
+    title: dict.seo.rooms.garden.title,
+    description: dict.seo.rooms.garden.description,
+    openGraph: {
+      title: dict.seo.rooms.garden.title,
+      description: dict.seo.rooms.garden.description,
+      locale: lang === "it" ? "it_IT" : "en_US",
+      type: "website",
+      siteName: dict.seo.siteName,
+    },
+    alternates: {
+      canonical: `https://terrazzasantachiara.com/${lang}/rooms/garden-room`,
+      languages: {
+        it: "/it/rooms/garden-room",
+        en: "/en/rooms/garden-room",
+      },
+    },
+  };
+}
+
+export default async function GardenRoomPage({ params }: Props) {
   const { lang } = await params;
   const dictionary = await getDictionary(lang as Locale);
 
