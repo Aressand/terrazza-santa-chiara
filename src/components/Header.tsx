@@ -12,8 +12,13 @@ import {
 import { Menu, Phone, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import type { Dictionary } from '@/lib/i18n/types';
 
-const Header = () => {
+interface HeaderProps {
+  translations: Dictionary['nav'];
+}
+
+const Header = ({ translations: t }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -30,12 +35,12 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation items with dynamic language prefix
+  // Navigation items with dynamic language prefix and translations
   const navigationItems = [
-    { label: 'Home', href: `/${currentLocale}` },
-    { label: 'Rooms', href: `/${currentLocale}#rooms` },
-    { label: 'About', href: `/${currentLocale}/about` },
-    { label: 'Contact', href: `/${currentLocale}/contact` }
+    { label: t.home, href: `/${currentLocale}` },
+    { label: t.rooms, href: `/${currentLocale}#rooms` },
+    { label: t.about, href: `/${currentLocale}/about` },
+    { label: t.contact, href: `/${currentLocale}/contact` }
   ];
 
   // Language switcher configuration
@@ -148,7 +153,7 @@ const Header = () => {
 
             {/* CTA Button */}
             <Button variant="terracotta" size="lg" className="font-semibold">
-              Book Now
+              {t.bookNow}
             </Button>
           </div>
 
@@ -227,7 +232,7 @@ const Header = () => {
                         <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-stone hover:bg-stone-dark text-stone-dark hover:text-background transition-all duration-300">
                           <div className="flex items-center space-x-2">
                             <Globe size={18} />
-                            <span className="font-medium">Language</span>
+                            <span className="font-medium">{t.language}</span>
                           </div>
                           <span className="font-semibold">{currentLocale.toUpperCase()}</span>
                         </button>
@@ -263,7 +268,7 @@ const Header = () => {
                       className="w-full font-semibold text-lg"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      Book Now
+                      {t.bookNow}
                     </Button>
 
                     {/* Contact Info */}
@@ -272,7 +277,7 @@ const Header = () => {
                         href="tel:+393401234567"
                         className="text-muted-foreground hover:text-terracotta transition-colors duration-300 text-sm"
                       >
-                        📞 +39 340 123 4567
+                        +39 340 123 4567
                       </a>
                     </div>
                   </div>

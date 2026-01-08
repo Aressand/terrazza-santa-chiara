@@ -1,4 +1,12 @@
-const FeaturesPreview = () => {
+import type { Dictionary } from '@/lib/i18n/types';
+
+interface FeaturesPreviewProps {
+  dictionary: Dictionary;
+}
+
+const FeaturesPreview = ({ dictionary }: FeaturesPreviewProps) => {
+  const t = dictionary.home.features;
+
   return (
     <section className="py-16 lg:py-24" aria-label="Property features">
       <div className="container-bnb">
@@ -10,9 +18,9 @@ const FeaturesPreview = () => {
                 <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
               </svg>
             </div>
-            <h3 className="text-heading text-xl mb-3">Panoramic Views</h3>
+            <h3 className="text-heading text-xl mb-3">{t.panoramic.title}</h3>
             <p className="text-body text-muted-foreground">
-              Breathtaking terrace views of Umbrian hills and medieval rooftops of historic Assisi
+              {t.panoramic.description}
             </p>
           </div>
 
@@ -22,9 +30,9 @@ const FeaturesPreview = () => {
                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
               </svg>
             </div>
-            <h3 className="text-heading text-xl mb-3">Authentic Comfort</h3>
+            <h3 className="text-heading text-xl mb-3">{t.comfort.title}</h3>
             <p className="text-body text-muted-foreground">
-              Refined rooms with period furnishings and all modern comforts for the perfect stay
+              {t.comfort.description}
             </p>
           </div>
 
@@ -34,9 +42,9 @@ const FeaturesPreview = () => {
                 <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
               </svg>
             </div>
-            <h3 className="text-heading text-xl mb-3">Prime Location</h3>
+            <h3 className="text-heading text-xl mb-3">{t.location.title}</h3>
             <p className="text-body text-muted-foreground">
-              In the heart of medieval Assisi, steps from Santa Chiara Basilica and local attractions
+              {t.location.description}
             </p>
           </div>
         </div>

@@ -45,14 +45,14 @@ terrazzasantachiara.com/admin/...       → Admin (NO i18n, Italian only)
 - [X] Create `lib/i18n/getDictionary.ts` helper function
 
 ### 6.3 Language Switcher
-- [ ] Replace simple toggle button with dropdown menu
-- [ ] Add to header/navigation
-- [ ] Preserve current path when switching language
+- [X] Replace simple toggle button with dropdown menu
+- [X] Add to header/navigation
+- [X] Preserve current path when switching language
 
 ### 6.4 Update Pages
-- [ ] Move public pages into `app/[lang]/` folder
-- [ ] Update all pages to receive and use `lang` param
-- [ ] Update all hardcoded Italian text to use translations
+- [x] Move public pages into `app/[lang]/` folder
+- [x] Update all pages to receive and use `lang` param
+- [x] Update all hardcoded Italian text to use translations
 
 
 ### 6.5 SEO for i18n

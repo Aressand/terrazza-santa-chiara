@@ -3,6 +3,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileContactActions from "@/components/MobileContactActions";
+import { getDictionary } from "@/lib/i18n/getDictionary";
+import type { Locale } from "@/lib/i18n/config";
 
 export default async function MainLayout({
   children,
@@ -11,14 +13,15 @@ export default async function MainLayout({
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
 }) {
-  // Await params to satisfy Next.js 16 async params requirement
-  await params;
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang as Locale);
+
   return (
     <>
-      <Header />
+      <Header translations={dictionary.nav} />
       <MobileContactActions />
       {children}
-      <Footer />
+      <Footer translations={dictionary.footer} lang={lang} />
     </>
   );
 }

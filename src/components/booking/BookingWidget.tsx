@@ -21,6 +21,33 @@ import { useRoomUnavailableDates } from '@/hooks/useRoomUnavailableDates';
 import type { RoomType } from '@/utils/roomMapping';
 import type { BookingFormData, BookingConfirmation, ConflictType } from '@/types/booking';
 
+interface BookingWidgetTranslations {
+  bookYourStay: string;
+  from: string;
+  perNight: string;
+  upTo: string;
+  guests: string;
+  selectDates: string;
+  invalidDates: string;
+  minimumNights: string;
+  datesUnavailable: string;
+  reserve: string;
+  checking: string;
+  loading: string;
+  youWontBeCharged: string;
+  avg: string;
+  night: string;
+  nights: string;
+  cleaningFee: string;
+  total: string;
+  bookingConfirmed: string;
+  confirmation: string;
+  guest: string;
+  room: string;
+  bookAnother: string;
+  completeBooking: string;
+}
+
 interface BookingWidgetProps {
   roomType: RoomType;
   roomName: string;
@@ -29,6 +56,7 @@ interface BookingWidgetProps {
   presetCheckIn?: Date;
   presetCheckOut?: Date;
   presetGuests?: number;
+  translations?: BookingWidgetTranslations;
 }
 
 // 🆕 ENHANCED: Conflict message generation with minimum stay support
@@ -59,6 +87,34 @@ const generateConflictMessage = (conflicts: ConflictType[]): string => {
   return messages.length > 0 ? `Selected dates unavailable: ${messages.join(' and ')}.` : 'Selected dates are not available.';
 };
 
+// Default English translations for backwards compatibility
+const defaultTranslations: BookingWidgetTranslations = {
+  bookYourStay: "Book Your Stay",
+  from: "from",
+  perNight: "/night",
+  upTo: "up to",
+  guests: "guests",
+  selectDates: "Select Dates",
+  invalidDates: "Invalid Dates",
+  minimumNights: "Minimum {min} nights required",
+  datesUnavailable: "Dates Unavailable",
+  reserve: "Reserve for",
+  checking: "Checking...",
+  loading: "Loading booking options...",
+  youWontBeCharged: "You won't be charged yet",
+  avg: "avg",
+  night: "night",
+  nights: "nights",
+  cleaningFee: "Cleaning fee",
+  total: "Total",
+  bookingConfirmed: "Booking Confirmed!",
+  confirmation: "Confirmation",
+  guest: "Guest",
+  room: "Room",
+  bookAnother: "Book Another Stay",
+  completeBooking: "Complete Your Booking",
+};
+
 const BookingWidget: React.FC<BookingWidgetProps> = ({
   roomType,
   roomName,
@@ -66,8 +122,10 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
   className,
   presetCheckIn,
   presetCheckOut,
-  presetGuests
+  presetGuests,
+  translations = defaultTranslations
 }) => {
+  const t = translations;
   // State management (keeping original structure)
   const [checkIn, setCheckIn] = useState<Date | null>(presetCheckIn || null);
   const [checkOut, setCheckOut] = useState<Date | null>(presetCheckOut || null);
@@ -174,7 +232,7 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
         <CardContent className="p-6">
           <div className="flex items-center justify-center py-8">
             <Loader2 className="h-6 w-6 animate-spin mr-2" />
-            <span className="text-muted-foreground">Loading booking options...</span>
+            <span className="text-muted-foreground">{t.loading}</span>
           </div>
         </CardContent>
       </Card>
@@ -204,28 +262,28 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
             <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto">
               <Check className="w-8 h-8 text-white" />
             </div>
-            
+
             <div>
               <h3 className="text-xl font-semibold text-green-800 mb-2">
-                Booking Confirmed!
+                {t.bookingConfirmed}
               </h3>
               <p className="text-sm text-green-700 mb-4">
-                Confirmation: <span className="font-mono font-semibold">
+                {t.confirmation}: <span className="font-mono font-semibold">
                   {bookingConfirmation.confirmation_number}
                 </span>
               </p>
-              
+
               <div className="bg-white rounded-lg p-4 text-left space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Guest:</span>
+                  <span className="text-sm text-muted-foreground">{t.guest}:</span>
                   <span className="text-sm font-medium">{bookingConfirmation.guest_name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Room:</span>
+                  <span className="text-sm text-muted-foreground">{t.room}:</span>
                   <span className="text-sm font-medium">{bookingConfirmation.room_name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Total:</span>
+                  <span className="text-sm text-muted-foreground">{t.total}:</span>
                   <span className="text-sm font-semibold text-green-700">
                     €{bookingConfirmation.total_price}
                   </span>
@@ -234,7 +292,7 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
             </div>
 
             <Button onClick={handleNewBooking} variant="outline" size="sm">
-              Book Another Stay
+              {t.bookAnother}
             </Button>
           </div>
         </CardContent>
@@ -249,16 +307,16 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
         {/* Header section (keeping original) */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
-            <h3 className="text-lg font-semibold">Book Your Stay</h3>
+            <h3 className="text-lg font-semibold">{t.bookYourStay}</h3>
             {roomData && (
               <span className="text-sm text-muted-foreground">
-                from €{roomData.base_price}/night
+                {t.from} €{roomData.base_price}{t.perNight}
               </span>
             )}
           </div>
           <div className="flex items-center space-x-1 text-sm text-muted-foreground">
             <Users className="w-4 h-4" />
-            <span>up to {capacity} guests</span>
+            <span>{t.upTo} {capacity} {t.guests}</span>
           </div>
         </div>
 
@@ -278,20 +336,20 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
             <div className="space-y-3 border-t border-border pt-4">
               <div className="flex justify-between items-center text-sm">
                 <span className="text-muted-foreground">
-                  €{Math.round(pricing.basePrice)} avg × {nights} night{nights > 1 ? 's' : ''}
+                  €{Math.round(pricing.basePrice)} {t.avg} × {nights} {nights > 1 ? t.nights : t.night}
                 </span>
                 <span className="font-medium">€{pricing.roomTotal}</span>
               </div>
 
               {pricing.cleaningFee > 0 && (
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-muted-foreground">Cleaning fee</span>
+                  <span className="text-muted-foreground">{t.cleaningFee}</span>
                   <span className="font-medium">€{pricing.cleaningFee}</span>
                 </div>
               )}
 
               <div className="flex justify-between items-center pt-3 border-t border-border">
-                <span className="font-semibold">Total</span>
+                <span className="font-semibold">{t.total}</span>
                 <span className="font-bold">€{pricing.totalPrice}</span>
               </div>
             </div>
@@ -323,23 +381,23 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
           {checking ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Checking...
+              {t.checking}
             </>
           ) : !checkIn || !checkOut ? (
-            'Select Dates'
+            t.selectDates
           ) : nights <= 0 ? (
-            'Invalid Dates'
+            t.invalidDates
           ) : !meetsMinimumStay ? (
-            `Minimum ${minimumStay} nights required`
+            t.minimumNights.replace('{min}', String(minimumStay))
           ) : availabilityError ? (
-            'Dates Unavailable'
+            t.datesUnavailable
           ) : (
-            `Reserve for €${pricing?.totalPrice || 0}`
+            `${t.reserve} €${pricing?.totalPrice || 0}`
           )}
         </Button>
 
         <p className="text-xs text-center text-muted-foreground">
-          You won't be charged yet
+          {t.youWontBeCharged}
         </p>
       </CardContent>
 
@@ -347,9 +405,9 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
       <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Complete Your Booking</DialogTitle>
+            <DialogTitle>{t.completeBooking}</DialogTitle>
           </DialogHeader>
-          
+
           <BookingForm
             nights={nights}
             totalPrice={pricing?.totalPrice || 0}

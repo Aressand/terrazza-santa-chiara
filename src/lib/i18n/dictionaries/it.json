@@ -7,28 +7,127 @@
     "about": "Chi Siamo",
     "contact": "Contatti"
   },
+  "nav": {
+    "home": "Home",
+    "rooms": "Camere",
+    "about": "Chi Siamo",
+    "contact": "Contatti",
+    "bookNow": "Prenota Ora",
+    "language": "Lingua"
+  },
   "home": {
     "hero": {
-      "title": "Terrazza Santa Chiara",
-      "subtitle": "Il tuo rifugio nel cuore di Assisi"
-    }
-  },
-  "rooms": {
-    "garden": {
-      "name": "Garden Room Sanctuary",
-      "description": "..."
+      "title": "Svegliati a 30 Metri dalla",
+      "titleHighlight": "Basilica di Santa Chiara",
+      "subtitle": "Dove l'Autentica Pietra Umbra Incontra il Lusso Moderno",
+      "features": {
+        "location": "Posizione Centro Storico",
+        "terrace": "Viste Panoramiche dalla Terrazza",
+        "experience": "Autentica Esperienza Italiana"
+      }
     },
-    "terrace": {
-      "name": "Panoramic Terrace Apartment",
-      "description": "..."
+    "search": {
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "guests": "Ospiti",
+      "selectDate": "Seleziona data",
+      "selectGuests": "Seleziona ospiti",
+      "guest": "Ospite",
+      "guestPlural": "Ospiti",
+      "search": "Cerca",
+      "searching": "Ricerca...",
+      "findRoom": "Trova la camera ideale",
+      "helpText": "Seleziona le date e il numero di ospiti per trovare le camere disponibili"
     },
-    "stoneVault": {
-      "name": "Historic Stone Vault Apartment",
-      "description": "..."
+    "rooms": {
+      "sectionTitle": "I Nostri Alloggi Unici",
+      "sectionSubtitle": "Ogni camera racconta una storia di autentico patrimonio umbro, combinando fascino storico con comfort moderno",
+      "discoverRoom": "Scopri Questa Camera",
+      "garden": {
+        "title": "Garden Room Sanctuary",
+        "capacity": "Perfetta per 2 ospiti",
+        "description": "Giardino privato sul tetto • Terrazza per colazione all'alba • 30m dalla Basilica",
+        "alt": "Camera Garden con terrazza sul tetto e vista dell'alba"
+      },
+      "terrace": {
+        "title": "Appartamento Terrazza Panoramica",
+        "capacity": "Fuga romantica per 2",
+        "description": "Viste mozzafiato sulla vallata • Terrazza al tramonto • Ingresso indipendente",
+        "alt": "Terrazza panoramica con vista sul tramonto della valle umbra"
+      },
+      "modern": {
+        "title": "Appartamento Lusso Contemporaneo",
+        "capacity": "Spazioso fino a 4 persone",
+        "description": "Recentemente ristrutturato • Illuminazione emozionale • Comfort moderni",
+        "alt": "Interni dell'appartamento di lusso moderno con design contemporaneo"
+      },
+      "stoneVault": {
+        "title": "Appartamento Storico a Volta in Pietra",
+        "capacity": "Esperienza autentica per 4",
+        "description": "Volte originali del XIII secolo • Pietra rosa del Subasio • Fascino medievale",
+        "alt": "Appartamento storico a volta in pietra con architettura medievale"
+      }
     },
-    "modern": {
-      "name": "Contemporary Luxury Apartment",
-      "description": "..."
+    "advantages": {
+      "sectionTitle": "Perché Scegliere Terrazza Santa Chiara",
+      "sectionSubtitle": "Vivi Assisi come mai prima in un autentico ambiente medievale con lusso moderno",
+      "location": {
+        "title": "Posizione Unica",
+        "subtitle": "30 Metri da Santa Chiara",
+        "description": "Cammina fino alla preghiera in meno di 1 minuto"
+      },
+      "architecture": {
+        "title": "Architettura Autentica",
+        "subtitle": "Pietra Rosa Originale del Subasio",
+        "description": "Vivi dentro la storia medievale di Assisi"
+      },
+      "outdoor": {
+        "title": "Spazi Esterni Privati",
+        "subtitle": "Giardini e Terrazze Esclusive",
+        "description": "Il tuo santuario privato nel centro città"
+      },
+      "modern": {
+        "title": "Ristrutturazione Moderna",
+        "subtitle": "Fascino Storico + Comfort di Oggi",
+        "description": "A/C, WiFi, comfort di lusso"
+      },
+      "views": {
+        "title": "Viste da Instagram",
+        "subtitle": "Panorami sulla Vallata",
+        "description": "Alba e tramonto dalla tua camera"
+      },
+      "spiritual": {
+        "title": "Esperienza Spirituale",
+        "subtitle": "Porta verso l'Assisi Francescana",
+        "description": "Perfetto per viaggi significativi"
+      },
+      "trust": {
+        "rating": "4.9/5 stelle",
+        "reviews": "da 127+ ospiti",
+        "testimonial": "\"La più autentica esperienza di Assisi! La Garden room era magica.\"",
+        "testimonialAuthor": "- Jennifer M., Boston",
+        "recommended": "Raccomandato dal Turismo di Assisi",
+        "secure": "Prenotazione Sicura"
+      }
+    },
+    "features": {
+      "panoramic": {
+        "title": "Viste Panoramiche",
+        "description": "Viste mozzafiato dalla terrazza sulle colline umbre e i tetti medievali della storica Assisi"
+      },
+      "comfort": {
+        "title": "Comfort Autentico",
+        "description": "Camere raffinate con arredi d'epoca e tutti i comfort moderni per un soggiorno perfetto"
+      },
+      "location": {
+        "title": "Posizione Privilegiata",
+        "description": "Nel cuore della medievale Assisi, a pochi passi dalla Basilica di Santa Chiara e dalle attrazioni locali"
+      }
+    },
+    "cta": {
+      "title": "Vivi l'Autentica Assisi",
+      "subtitle": "Scopri il fascino dell'Umbria medievale in un ambiente intimo e raffinato",
+      "button": "Verifica Disponibilità"
     }
   },
   "booking": {
@@ -38,5 +137,375 @@
     "totalPrice": "Prezzo totale",
     "perNight": "a notte",
     "nights": "notti"
+  },
+  "roomPage": {
+    "backToHome": "Torna alla homepage",
+    "perfectFor": "Perfetto per",
+    "guests": "ospiti",
+    "upTo": "fino a",
+    "roomDetails": "Dettagli Camera",
+    "whatMakesSpecial": "Cosa Rende Speciale Questo Alloggio",
+    "size": "Dimensioni",
+    "bed": "Letto",
+    "beds": "Letti",
+    "bathroom": "Bagno",
+    "kitchen": "Cucina",
+    "garden": "Giardino",
+    "terrace": "Terrazza",
+    "view": "Vista",
+    "architecture": "Architettura",
+    "capacity": "Capacità"
+  },
+  "rooms": {
+    "garden": {
+      "heroTitle": "Garden Room Sanctuary",
+      "heroSubtitle": "Perfetta per 2 ospiti",
+      "heroAlt": "Garden Room Sanctuary con giardino privato sul tetto e vista su Assisi",
+      "title": "Il Tuo Santuario Privato sul Tetto",
+      "subtitle": "Perfetto per coppie in cerca di autentico romanticismo assisano",
+      "description": "Entra nel tuo santuario privato sopra i tetti della medievale Assisi. All'alba, quando il sole sorge sui monti del Subasio, goditi un espresso mattutino circondato da erbe aromatiche nel tuo esclusivo giardino sul tetto. Il dolce rintocco delle campane di Santa Chiara - a soli 30 metri - crea la colonna sonora perfetta per la tua autentica esperienza umbra.",
+      "details": {
+        "size": "25 mq + giardino privato",
+        "bed": "Letto matrimoniale di lusso",
+        "bathroom": "Doccia, amenità di lusso",
+        "garden": "Tetto privato con sedute",
+        "view": "Tetti di Assisi + scorcio della basilica"
+      },
+      "amenities": [
+        "Svegliati con le campane della chiesa (30m dalla Basilica)",
+        "Estate fresca garantita (A/C + riscaldamento)",
+        "WiFi ultraveloce per condividere i ricordi",
+        "Biancheria di lusso appena lavata",
+        "Oasi giardino privata nel centro città",
+        "Angolo caffè e tè"
+      ],
+      "gallery": {
+        "main": "Giardino privato sul tetto",
+        "interior": "Interni della Garden room",
+        "bathroom": "Bagno di lusso",
+        "view": "Vista panoramica dalla camera",
+        "details": "Dettagli delle amenità",
+        "ambiance": "Atmosfera serale del giardino"
+      }
+    },
+    "terrace": {
+      "heroTitle": "Appartamento Terrazza Panoramica",
+      "heroSubtitle": "Perfetto per 2 ospiti",
+      "heroAlt": "Appartamento Terrazza Panoramica con vista sulla vallata",
+      "title": "Il Tuo Santuario Privato del Tramonto",
+      "subtitle": "Vivi i tramonti più mozzafiato di Assisi dalla tua terrazza panoramica privata",
+      "description": "Vivi i tramonti più mozzafiato di Assisi dalla tua terrazza panoramica privata. Questo romantico appartamento dispone di una cucina completa per cene intime, un ingresso indipendente per la massima privacy e viste sulla vallata che si estendono fino all'orizzonte.",
+      "descriptionExtra": "Situato nel centro storico a pochi passi dalla Basilica di Santa Chiara, potrai godere della perfetta combinazione di autentica atmosfera medievale e comfort moderni di lusso. La posizione elevata dell'appartamento offre un rifugio tranquillo mantenendoti connesso al cuore spirituale di Assisi.",
+      "details": {
+        "size": "Appartamento completo + terrazza",
+        "bed": "Letto matrimoniale di lusso",
+        "kitchen": "Cucina completamente attrezzata",
+        "terrace": "Terrazza panoramica privata",
+        "view": "Vista sulla vallata senza ostacoli"
+      },
+      "amenities": [
+        "Terrazza al tramonto con vista sulla vallata",
+        "Cucina completa per cene romantiche",
+        "Ingresso indipendente per privacy",
+        "WiFi ultraveloce per condividere i ricordi",
+        "Biancheria di lusso appena lavata",
+        "Angolo caffè e tè"
+      ],
+      "gallery": {
+        "main": "Terrazza panoramica con vista sulla vallata",
+        "interior": "Interni dell'appartamento terrazza",
+        "bathroom": "Bagno moderno",
+        "view": "Vista del tramonto dalla terrazza",
+        "kitchen": "Cucina e zona giorno",
+        "ambiance": "Atmosfera serale della terrazza"
+      }
+    },
+    "stoneVault": {
+      "heroTitle": "Appartamento Storico a Volta in Pietra",
+      "heroSubtitle": "Perfetto per 4 ospiti",
+      "heroAlt": "Appartamento Storico a Volta in Pietra con architettura del XIII secolo",
+      "title": "La Tua Esperienza di Vita Medievale",
+      "subtitle": "Perfetto per gli amanti della storia e le famiglie in cerca di carattere autentico",
+      "description": "Fai un salto indietro nel tempo tra gli autentici soffitti a volta in pietra del XIII secolo di questo straordinario appartamento. L'architettura storica crea un'atmosfera unica - fresca d'estate grazie all'isolamento naturale della pietra, calda di carattere tutto l'anno. Comfort moderni tra cui cucina completa, letto king size e divano letto matrimoniale si fondono perfettamente con il fascino medievale. Vivi Assisi come era destinata ad essere vissuta, circondato da secoli di storia mentre godi dei comfort contemporanei.",
+      "details": {
+        "architecture": "Volte in pietra del XIII secolo",
+        "beds": "Letto king + divano letto matrimoniale",
+        "bathroom": "Amenità moderne",
+        "kitchen": "Cucina completamente attrezzata",
+        "capacity": "Fino a 4 ospiti"
+      },
+      "amenities": [
+        "Autentici soffitti a volta in pietra del XIII secolo",
+        "Estate fresca garantita (isolamento naturale della pietra)",
+        "Cucina completa con elettrodomestici moderni",
+        "Letto king + divano letto matrimoniale (4 posti)",
+        "WiFi ultraveloce in ambiente storico",
+        "Caratteristiche architettoniche medievali uniche"
+      ],
+      "gallery": {
+        "main": "Appartamento storico a volta in pietra",
+        "interior": "Soffitti a volta del XIII secolo",
+        "bathroom": "Bagno moderno in ambiente storico",
+        "kitchen": "Cucina attrezzata",
+        "vaults": "Autentica architettura medievale",
+        "living": "Spazio living a volta in pietra"
+      }
+    },
+    "modern": {
+      "heroTitle": "Appartamento Lusso Contemporaneo",
+      "heroSubtitle": "Perfetto per 4 ospiti",
+      "heroAlt": "Appartamento Lusso Contemporaneo con design moderno e illuminazione emozionale",
+      "title": "Il Tuo Rifugio Urbano Contemporaneo",
+      "subtitle": "Perfetto per famiglie e gruppi in cerca di comfort moderno",
+      "description": "Vivi la perfetta combinazione del fascino storico di Assisi e del lusso contemporaneo. Il nostro appartamento recentemente ristrutturato presenta illuminazione emozionale, letto king size più divano letto matrimoniale e una cucina moderna completa. L'ampio bagno con illuminazione sofisticata crea un'atmosfera di puro relax. Ideale per lavoratori da remoto e famiglie, questo spazio contemporaneo offre tutti i comfort moderni immergendoti nell'atmosfera senza tempo di Assisi.",
+      "details": {
+        "size": "Appartamento di lusso completo",
+        "beds": "Letto king + divano letto matrimoniale",
+        "bathroom": "Spazioso con illuminazione emozionale",
+        "kitchen": "Cucina moderna completa",
+        "capacity": "Fino a 4 ospiti"
+      },
+      "amenities": [
+        "Recentemente ristrutturato con design contemporaneo",
+        "Bagno spazioso con illuminazione emozionale",
+        "Cucina moderna completa di tutti gli elettrodomestici",
+        "Letto king + divano letto matrimoniale (4 posti)",
+        "WiFi ultraveloce per lavoro da remoto",
+        "Arredamento contemporaneo e funzionalità smart"
+      ],
+      "gallery": {
+        "main": "Appartamento lusso contemporaneo",
+        "interior": "Spazio living moderno",
+        "bathroom": "Bagno spazioso con illuminazione emozionale",
+        "kitchen": "Area cucina moderna",
+        "bedroom": "Camera da letto contemporanea",
+        "living": "Interni appartamento moderno"
+      }
+    }
+  },
+  "bookingWidget": {
+    "bookYourStay": "Prenota il Tuo Soggiorno",
+    "from": "da",
+    "perNight": "/notte",
+    "upTo": "fino a",
+    "guests": "ospiti",
+    "selectDates": "Seleziona Date",
+    "invalidDates": "Date Non Valide",
+    "minimumNights": "Minimo {min} notti richieste",
+    "datesUnavailable": "Date Non Disponibili",
+    "reserve": "Prenota per",
+    "checking": "Verifica...",
+    "loading": "Caricamento opzioni prenotazione...",
+    "youWontBeCharged": "Non ti verrà addebitato nulla",
+    "avg": "media",
+    "night": "notte",
+    "nights": "notti",
+    "cleaningFee": "Pulizia finale",
+    "total": "Totale",
+    "bookingConfirmed": "Prenotazione Confermata!",
+    "confirmation": "Conferma",
+    "guest": "Ospite",
+    "room": "Camera",
+    "bookAnother": "Prenota un Altro Soggiorno",
+    "completeBooking": "Completa la Prenotazione"
+  },
+  "about": {
+    "heroTitle": "Benvenuti a Terrazza Santa Chiara",
+    "heroSubtitle": "Dove la Storia Incontra l'Ospitalità nel Cuore di Assisi",
+    "heroAlt": "Proprietà Terrazza Santa Chiara",
+    "story": {
+      "title": "La Nostra Storia",
+      "paragraph1": "Terrazza Santa Chiara è nata dal nostro profondo amore per l'energia spirituale e la bellezza architettonica di Assisi. Dopo anni di viaggi nel mondo, abbiamo scoperto questa straordinaria proprietà - l'unico alloggio a soli 30 metri dalla Basilica di Santa Chiara.",
+      "paragraph2": "Abbiamo restaurato con cura ogni stanza per onorare il suo patrimonio medievale aggiungendo i comfort moderni che i viaggiatori di oggi meritano. La nostra missione è semplice: aiutarti a vivere l'autentica Assisi come un locale, non come un turista."
+    },
+    "highlights": {
+      "location": {
+        "title": "Posizione Privilegiata",
+        "description": "A soli 30 metri dalla Basilica di Santa Chiara - l'alloggio più vicino a questo sito sacro"
+      },
+      "experience": {
+        "title": "Esperienza Autentica",
+        "description": "L'architettura medievale incontra il comfort moderno in ogni stanza accuratamente restaurata"
+      }
+    },
+    "policies": {
+      "title": "Politiche e Servizi",
+      "subtitle": "Tutto ciò che devi sapere per un soggiorno confortevole e memorabile",
+      "checkInTimes": {
+        "title": "Orari Check-in",
+        "details": "15:00 - 20:00 (Arrivo tardivo €20)"
+      },
+      "cancellation": {
+        "title": "Cancellazione",
+        "details": "Cancellazione gratuita fino a 48 ore prima dell'arrivo"
+      },
+      "petPolicy": {
+        "title": "Animali",
+        "details": "Piccoli animali benvenuti (€20/notte supplemento)"
+      },
+      "languages": {
+        "title": "Lingue",
+        "details": "Italiano, Inglese, francese e tedesco base"
+      }
+    },
+    "services": {
+      "title": "Servizi Gratuiti",
+      "items": [
+        "Assistenza concierge personale",
+        "Prenotazioni ristoranti",
+        "Prenotazione tour locali",
+        "Organizzazione trasporti",
+        "Guida ai siti spirituali",
+        "Consigli sui tesori nascosti"
+      ]
+    },
+    "checkInOut": {
+      "title": "Check-in & Check-out",
+      "checkIn": "Check-in",
+      "checkInTime": "15:00 - 20:00",
+      "checkOut": "Check-out",
+      "checkOutTime": "11:00",
+      "lateArrival": "Arrivo tardivo (dopo le 20:00): €20 supplemento",
+      "lateCheckout": "Late checkout disponibile su richiesta"
+    }
+  },
+  "contact": {
+    "pageTitle": "Contattaci",
+    "pageSubtitle": "Pronto a vivere l'autentica Assisi? Siamo qui per aiutarti a pianificare il tuo soggiorno perfetto.",
+    "form": {
+      "title": "Inviaci una Richiesta",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Email",
+      "phone": "Numero di Telefono",
+      "country": "Paese",
+      "selectCountry": "Seleziona il tuo paese",
+      "countries": {
+        "italy": "Italia",
+        "usa": "Stati Uniti",
+        "uk": "Regno Unito",
+        "germany": "Germania",
+        "france": "Francia",
+        "spain": "Spagna",
+        "other": "Altro"
+      },
+      "checkInDate": "Data Check-in",
+      "checkOutDate": "Data Check-out",
+      "selectDate": "Seleziona data",
+      "guests": "Numero di Ospiti",
+      "selectGuests": "Seleziona ospiti",
+      "guest": "Ospite",
+      "guestPlural": "Ospiti",
+      "roomPreference": "Preferenza Camera",
+      "selectRoom": "Seleziona tipo di camera",
+      "roomOptions": {
+        "garden": "Garden Room Sanctuary",
+        "terrace": "Appartamento Terrazza Panoramica",
+        "modern": "Appartamento Lusso Contemporaneo",
+        "stone": "Appartamento Storico a Volta in Pietra",
+        "any": "Qualsiasi Disponibile"
+      },
+      "inquiryType": "Tipo di Richiesta",
+      "selectInquiry": "Come possiamo aiutarti?",
+      "inquiryOptions": {
+        "booking": "Prenotazione Camera",
+        "availability": "Verifica Disponibilità",
+        "group": "Prenotazione Gruppo",
+        "services": "Servizi Locali e Tour",
+        "special": "Occasioni Speciali",
+        "other": "Richiesta Generale"
+      },
+      "message": "Messaggio",
+      "messagePlaceholder": "Raccontaci della tua esperienza ideale ad Assisi...",
+      "submit": "Invia Richiesta",
+      "submitting": "Invio in corso...",
+      "required": "*",
+      "successMessage": "Richiesta Inviata con Successo! Risponderemo al tuo messaggio entro 24 ore."
+    },
+    "directContact": {
+      "title": "Contattaci Direttamente",
+      "availability": "Disponibili 9:00 - 20:00 tutti i giorni",
+      "address": {
+        "title": "Indirizzo",
+        "details": "Via Sermei, 06081 Assisi PG, Italia",
+        "action": "Vedi su Google Maps"
+      },
+      "phone": {
+        "title": "Telefono",
+        "details": "+39 075 XXX XXXX",
+        "action": "Chiama Ora"
+      },
+      "email": {
+        "title": "Email",
+        "details": "info@terrazzasantachiara.com",
+        "action": "Invia Email"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "details": "Scrivici direttamente",
+        "action": "Apri WhatsApp"
+      }
+    },
+    "location": {
+      "title": "Posizione e Come Arrivare",
+      "mapPlaceholder": "Integrazione Google Maps",
+      "mapAddress": "Via Sermei, Assisi",
+      "directions": {
+        "title": "Indicazioni a Piedi",
+        "trainStation": {
+          "from": "Stazione Ferroviaria",
+          "time": "12 minuti in salita",
+          "description": "Piacevole passeggiata attraverso le vie medievali"
+        },
+        "sanFrancesco": {
+          "from": "Basilica San Francesco",
+          "time": "15 minuti panoramici",
+          "description": "Bellissimo percorso attraverso il centro storico"
+        },
+        "parking": {
+          "from": "Parcheggio Giovanni Paolo II",
+          "time": "5 minuti a piedi",
+          "description": "Il parcheggio più vicino alla nostra struttura"
+        }
+      }
+    },
+    "recommendations": {
+      "title": "Consigli Locali",
+      "restaurants": {
+        "title": "Ristoranti",
+        "items": ["La Fortezza", "Osteria del Sole", "Trattoria degli Umbri"]
+      },
+      "hiddenGems": {
+        "title": "Tesori Nascosti",
+        "items": ["Tramonto dalla Rocca Maggiore", "Negozi di Via Portica", "Piazza della fontana medievale"]
+      },
+      "spiritualSites": {
+        "title": "Siti Spirituali",
+        "items": ["Santa Chiara (30m)", "San Francesco (800m)", "Cattedrale di San Rufino (400m)"]
+      }
+    }
+  },
+  "footer": {
+    "contact": {
+      "title": "Contatti",
+      "address": "Assisi, Italia",
+      "phone": "+39 XXX XXX XXXX",
+      "email": "info@terrazzasantachiara.com"
+    },
+    "accommodations": {
+      "title": "I Nostri Alloggi",
+      "gardenRoom": "Garden Room Sanctuary",
+      "stoneVault": "Appartamento Volta in Pietra",
+      "terrace": "Terrazza Panoramica",
+      "modern": "Lusso Contemporaneo"
+    },
+    "information": {
+      "title": "Informazioni",
+      "aboutUs": "Chi Siamo",
+      "contact": "Contatti",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Termini di Servizio"
+    },
+    "copyright": "© 2026 Terrazza Santa Chiara - Tutti i diritti riservati"
   }
 }

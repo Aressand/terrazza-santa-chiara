@@ -1,9 +1,17 @@
 import React from 'react';
 import SearchWidget from './SearchWidget';
+import type { Dictionary } from '@/lib/i18n/types';
 
 const heroBackground = "/images/assisi-hero-bg.jpg";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  dictionary: Dictionary;
+}
+
+const HeroSection = ({ dictionary }: HeroSectionProps) => {
+  const t = dictionary.home.hero;
+  const searchT = dictionary.home.search;
+
   return (
     <section className="relative h-[80vh] lg:h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -24,18 +32,18 @@ const HeroSection = () => {
           {/* Headlines */}
           <div className="mb-12 animate-fade-in">
             <h1 className="font-playfair font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-tight mb-6">
-              Wake Up 30 Meters from
-              <span className="block text-stone-light">Santa Chiara Basilica</span>
+              {t.title}
+              <span className="block text-stone-light">{t.titleHighlight}</span>
             </h1>
 
             <p className="font-inter text-lg md:text-xl lg:text-2xl text-stone-light/90 max-w-3xl mx-auto leading-relaxed mb-12">
-              Where Authentic Umbrian Stone Meets Modern Luxury
+              {t.subtitle}
             </p>
           </div>
 
           {/* Search Widget */}
           <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <SearchWidget />
+            <SearchWidget translations={searchT} />
           </div>
 
           {/* Additional Info */}
@@ -43,15 +51,15 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-white/80">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-terracotta rounded-full"></div>
-                <span className="text-sm font-medium">Historic Center Location</span>
+                <span className="text-sm font-medium">{t.features.location}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-sage rounded-full"></div>
-                <span className="text-sm font-medium">Panoramic Terrace Views</span>
+                <span className="text-sm font-medium">{t.features.terrace}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-stone-light rounded-full"></div>
-                <span className="text-sm font-medium">Authentic Italian Experience</span>
+                <span className="text-sm font-medium">{t.features.experience}</span>
               </div>
             </div>
           </div>

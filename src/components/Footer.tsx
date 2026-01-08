@@ -1,95 +1,101 @@
 import Link from 'next/link';
+import type { Dictionary } from '@/lib/i18n/types';
 
-const Footer = () => {
+interface FooterProps {
+  translations: Dictionary['footer'];
+  lang: string;
+}
+
+const Footer = ({ translations: t, lang }: FooterProps) => {
   return (
     <footer className="border-t border-sage/20 mt-auto" style={{ backgroundColor: '#975635' }}>
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Contact Column */}
           <div>
-            <h3 className="font-medium text-lg mb-4" style={{ color: '#f9f5f0' }}>Contact</h3>
+            <h3 className="font-medium text-lg mb-4" style={{ color: '#f9f5f0' }}>{t.contact.title}</h3>
             <div className="space-y-2" style={{ color: '#f9f5f0' }}>
               <p className="flex items-center gap-2">
                 <span>📍</span>
-                Assisi, Italy
+                {t.contact.address}
               </p>
               <p className="flex items-center gap-2">
                 <span>📞</span>
-                +39 XXX XXX XXXX
+                {t.contact.phone}
               </p>
               <p className="flex items-center gap-2">
                 <span>✉️</span>
-                info@assisibnb.com
+                {t.contact.email}
               </p>
             </div>
           </div>
 
           {/* Rooms Column */}
           <div>
-            <h3 className="font-medium text-lg mb-4" style={{ color: '#f9f5f0' }}>Our Accommodations</h3>
+            <h3 className="font-medium text-lg mb-4" style={{ color: '#f9f5f0' }}>{t.accommodations.title}</h3>
             <div className="space-y-2">
               <Link
-                href="/rooms/garden-room"
+                href={`/${lang}/rooms/garden-room`}
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                Garden Room Sanctuary
+                {t.accommodations.gardenRoom}
               </Link>
               <Link
-                href="/rooms/stone-vault-apartment"
+                href={`/${lang}/rooms/stone-vault-apartment`}
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                Historic Stone Vault
+                {t.accommodations.stoneVault}
               </Link>
               <Link
-                href="/rooms/terrace-apartment"
+                href={`/${lang}/rooms/terrace-apartment`}
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                Panoramic Terrace
+                {t.accommodations.terrace}
               </Link>
               <Link
-                href="/rooms/modern-apartment"
+                href={`/${lang}/rooms/modern-apartment`}
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                Contemporary Luxury
+                {t.accommodations.modern}
               </Link>
             </div>
           </div>
 
           {/* Legal Column */}
           <div>
-            <h3 className="font-medium text-lg mb-4" style={{ color: '#f9f5f0' }}>Information</h3>
+            <h3 className="font-medium text-lg mb-4" style={{ color: '#f9f5f0' }}>{t.information.title}</h3>
             <div className="space-y-2">
               <Link
-                href="/about"
+                href={`/${lang}/about`}
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                About Us
+                {t.information.aboutUs}
               </Link>
               <Link
-                href="/contact"
+                href={`/${lang}/contact`}
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                Contact
+                {t.information.contact}
               </Link>
               <a
                 href="#"
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                Privacy Policy
+                {t.information.privacyPolicy}
               </a>
               <a
                 href="#"
                 className="block hover:underline transition-colors"
                 style={{ color: '#f9f5f0' }}
               >
-                Terms of Service
+                {t.information.termsOfService}
               </a>
             </div>
           </div>
@@ -98,7 +104,7 @@ const Footer = () => {
         {/* Bottom Row */}
         <div className="mt-8 pt-8 border-t border-white/20">
           <p className="text-center text-sm" style={{ color: '#f9f5f0' }}>
-            © 2024 Assisi B&B - All rights reserved
+            {t.copyright}
           </p>
         </div>
       </div>

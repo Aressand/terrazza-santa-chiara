@@ -1,61 +1,57 @@
 import { Building, Home, Sunrise, Sparkles, Camera, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import type { Dictionary } from '@/lib/i18n/types';
 
-const features = [
-  {
-    icon: Building,
-    title: "Unique Location",
-    subtitle: "30 Meters from Santa Chiara",
-    description: "Walk to prayer in under 1 minute"
-  },
-  {
-    icon: Home,
-    title: "Authentic Architecture",
-    subtitle: "Original Subasio Pink Stone",
-    description: "Live inside Assisi's medieval history"
-  },
-  {
-    icon: Sunrise,
-    title: "Private Outdoor Spaces",
-    subtitle: "Exclusive Gardens & Terraces",
-    description: "Your private sanctuary in city center"
-  },
-  {
-    icon: Sparkles,
-    title: "Modern Renovation",
-    subtitle: "Historical Charm + Today's Comfort",
-    description: "A/C, WiFi, luxury amenities"
-  },
-  {
-    icon: Camera,
-    title: "Instagram-Worthy Views",
-    subtitle: "Panoramic Valley Vistas",
-    description: "Sunrise & sunset from your room"
-  },
-  {
-    icon: Heart,
-    title: "Spiritual Experience",
-    subtitle: "Gateway to Franciscan Assisi",
-    description: "Perfect for meaningful travel"
-  }
-];
+interface CompetitiveAdvantagesProps {
+  dictionary: Dictionary;
+}
 
-const CompetitiveAdvantages = () => {
+const CompetitiveAdvantages = ({ dictionary }: CompetitiveAdvantagesProps) => {
+  const t = dictionary.home.advantages;
+
+  const features = [
+    {
+      icon: Building,
+      translationKey: "location" as const,
+    },
+    {
+      icon: Home,
+      translationKey: "architecture" as const,
+    },
+    {
+      icon: Sunrise,
+      translationKey: "outdoor" as const,
+    },
+    {
+      icon: Sparkles,
+      translationKey: "modern" as const,
+    },
+    {
+      icon: Camera,
+      translationKey: "views" as const,
+    },
+    {
+      icon: Heart,
+      translationKey: "spiritual" as const,
+    }
+  ];
+
   return (
     <section className="py-16 lg:py-24 bg-gradient-subtle">
       <div className="container-bnb">
         <div className="text-center mb-12">
           <h2 className="text-display text-3xl lg:text-4xl mb-4 text-foreground">
-            Why Choose Terrazza Santa Chiara
+            {t.sectionTitle}
           </h2>
           <p className="text-body text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience Assisi like never before in our authentic medieval setting with modern luxury
+            {t.sectionSubtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {features.map((feature, index) => {
             const Icon = feature.icon;
+            const featureT = t[feature.translationKey];
             return (
               <Card
                 key={index}
@@ -67,13 +63,13 @@ const CompetitiveAdvantages = () => {
                     <Icon className="w-6 h-6 text-sage" />
                   </div>
                   <h3 className="text-heading text-lg mb-2 text-foreground">
-                    {feature.title}
+                    {featureT.title}
                   </h3>
                   <p className="text-sage font-medium text-sm mb-2">
-                    {feature.subtitle}
+                    {featureT.subtitle}
                   </p>
                   <p className="text-body text-muted-foreground text-sm leading-relaxed">
-                    {feature.description}
+                    {featureT.description}
                   </p>
                 </CardContent>
               </Card>
@@ -98,20 +94,20 @@ const CompetitiveAdvantages = () => {
                 ))}
               </div>
               <p className="text-heading font-semibold text-lg text-foreground">
-                4.9/5 stars
+                {t.trust.rating}
               </p>
               <p className="text-body text-sm text-muted-foreground">
-                from 127+ guests
+                {t.trust.reviews}
               </p>
             </div>
 
             {/* Testimonial */}
             <div className="text-center">
               <blockquote className="text-body text-foreground/90 italic text-lg leading-relaxed mb-3">
-                "The most authentic Assisi experience! Garden room was magical."
+                {t.trust.testimonial}
               </blockquote>
               <cite className="text-sage font-medium text-sm">
-                - Jennifer M., Boston
+                {t.trust.testimonialAuthor}
               </cite>
             </div>
 
@@ -121,13 +117,13 @@ const CompetitiveAdvantages = () => {
                 <svg className="w-4 h-4 text-sage fill-current" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
-                <span className="text-sage text-sm font-medium">Recommended by Assisi Tourism</span>
+                <span className="text-sage text-sm font-medium">{t.trust.recommended}</span>
               </div>
               <div className="flex items-center space-x-2 bg-white/60 rounded-full px-4 py-2">
                 <svg className="w-4 h-4 text-sage fill-current" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
-                <span className="text-sage text-sm font-medium">Secure Booking</span>
+                <span className="text-sage text-sm font-medium">{t.trust.secure}</span>
               </div>
             </div>
           </div>

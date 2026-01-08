@@ -7,28 +7,127 @@
     "about": "About",
     "contact": "Contact"
   },
+  "nav": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "about": "About",
+    "contact": "Contact",
+    "bookNow": "Book Now",
+    "language": "Language"
+  },
   "home": {
     "hero": {
-      "title": "Terrazza Santa Chiara",
-      "subtitle": "Your retreat in the heart of Assisi"
-    }
-  },
-  "rooms": {
-    "garden": {
-      "name": "Garden Room Sanctuary",
-      "description": "..."
+      "title": "Wake Up 30 Meters from",
+      "titleHighlight": "Santa Chiara Basilica",
+      "subtitle": "Where Authentic Umbrian Stone Meets Modern Luxury",
+      "features": {
+        "location": "Historic Center Location",
+        "terrace": "Panoramic Terrace Views",
+        "experience": "Authentic Italian Experience"
+      }
     },
-    "terrace": {
-      "name": "Panoramic Terrace Apartment",
-      "description": "..."
+    "search": {
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "guests": "Guests",
+      "selectDate": "Select date",
+      "selectGuests": "Select guests",
+      "guest": "Guest",
+      "guestPlural": "Guests",
+      "search": "Search",
+      "searching": "Searching...",
+      "findRoom": "Find perfect Room",
+      "helpText": "Select your dates and number of guests to find available rooms"
     },
-    "stoneVault": {
-      "name": "Historic Stone Vault Apartment",
-      "description": "..."
+    "rooms": {
+      "sectionTitle": "Our Unique Accommodations",
+      "sectionSubtitle": "Each room tells a story of authentic Umbrian heritage, combining historic charm with modern comfort",
+      "discoverRoom": "Discover This Room",
+      "garden": {
+        "title": "Garden Room Sanctuary",
+        "capacity": "Perfect for 2 guests",
+        "description": "Private rooftop garden • Sunrise breakfast terrace • 30m from Basilica",
+        "alt": "Garden Room with rooftop terrace and sunrise view"
+      },
+      "terrace": {
+        "title": "Panoramic Terrace Apartment",
+        "capacity": "Romantic escape for 2",
+        "description": "Breathtaking valley views • Sunset terrace • Independent entrance",
+        "alt": "Panoramic terrace with Umbrian valley sunset views"
+      },
+      "modern": {
+        "title": "Contemporary Luxury Apartment",
+        "capacity": "Spacious for up to 4",
+        "description": "Recently renovated • Emotional lighting • Modern amenities",
+        "alt": "Modern luxury apartment interior with contemporary design"
+      },
+      "stoneVault": {
+        "title": "Historic Stone Vault Apartment",
+        "capacity": "Authentic experience for 4",
+        "description": "Original 13th century vaults • Subasio pink stone • Medieval charm",
+        "alt": "Historic stone vault apartment with medieval architecture"
+      }
     },
-    "modern": {
-      "name": "Contemporary Luxury Apartment",
-      "description": "..."
+    "advantages": {
+      "sectionTitle": "Why Choose Terrazza Santa Chiara",
+      "sectionSubtitle": "Experience Assisi like never before in our authentic medieval setting with modern luxury",
+      "location": {
+        "title": "Unique Location",
+        "subtitle": "30 Meters from Santa Chiara",
+        "description": "Walk to prayer in under 1 minute"
+      },
+      "architecture": {
+        "title": "Authentic Architecture",
+        "subtitle": "Original Subasio Pink Stone",
+        "description": "Live inside Assisi's medieval history"
+      },
+      "outdoor": {
+        "title": "Private Outdoor Spaces",
+        "subtitle": "Exclusive Gardens & Terraces",
+        "description": "Your private sanctuary in city center"
+      },
+      "modern": {
+        "title": "Modern Renovation",
+        "subtitle": "Historical Charm + Today's Comfort",
+        "description": "A/C, WiFi, luxury amenities"
+      },
+      "views": {
+        "title": "Instagram-Worthy Views",
+        "subtitle": "Panoramic Valley Vistas",
+        "description": "Sunrise & sunset from your room"
+      },
+      "spiritual": {
+        "title": "Spiritual Experience",
+        "subtitle": "Gateway to Franciscan Assisi",
+        "description": "Perfect for meaningful travel"
+      },
+      "trust": {
+        "rating": "4.9/5 stars",
+        "reviews": "from 127+ guests",
+        "testimonial": "\"The most authentic Assisi experience! Garden room was magical.\"",
+        "testimonialAuthor": "- Jennifer M., Boston",
+        "recommended": "Recommended by Assisi Tourism",
+        "secure": "Secure Booking"
+      }
+    },
+    "features": {
+      "panoramic": {
+        "title": "Panoramic Views",
+        "description": "Breathtaking terrace views of Umbrian hills and medieval rooftops of historic Assisi"
+      },
+      "comfort": {
+        "title": "Authentic Comfort",
+        "description": "Refined rooms with period furnishings and all modern comforts for the perfect stay"
+      },
+      "location": {
+        "title": "Prime Location",
+        "description": "In the heart of medieval Assisi, steps from Santa Chiara Basilica and local attractions"
+      }
+    },
+    "cta": {
+      "title": "Experience Authentic Assisi",
+      "subtitle": "Discover the charm of medieval Umbria in an intimate and refined setting",
+      "button": "Check Availability"
     }
   },
   "booking": {
@@ -38,5 +137,375 @@
     "totalPrice": "Total price",
     "perNight": "per night",
     "nights": "nights"
+  },
+  "roomPage": {
+    "backToHome": "Back to homepage",
+    "perfectFor": "Perfect for",
+    "guests": "guests",
+    "upTo": "up to",
+    "roomDetails": "Room Details",
+    "whatMakesSpecial": "What Makes This Special",
+    "size": "Size",
+    "bed": "Bed",
+    "beds": "Beds",
+    "bathroom": "Bathroom",
+    "kitchen": "Kitchen",
+    "garden": "Garden",
+    "terrace": "Terrace",
+    "view": "View",
+    "architecture": "Architecture",
+    "capacity": "Capacity"
+  },
+  "rooms": {
+    "garden": {
+      "heroTitle": "Garden Room Sanctuary",
+      "heroSubtitle": "Perfect for 2 guests",
+      "heroAlt": "Garden Room Sanctuary with private rooftop garden and Assisi views",
+      "title": "Your Private Rooftop Garden Sanctuary",
+      "subtitle": "Perfect for couples seeking authentic Assisi romance",
+      "description": "Step into your private sanctuary above medieval Assisi's rooftops. As dawn breaks over the Subasio mountains, enjoy morning espresso surrounded by aromatic herbs in your exclusive rooftop garden. The gentle chime of Santa Chiara's bells - just 30 meters away - creates the perfect soundtrack for your authentic Umbrian experience.",
+      "details": {
+        "size": "25 sqm + private garden",
+        "bed": "Queen size luxury mattress",
+        "bathroom": "Shower, luxury amenities",
+        "garden": "Private rooftop with seating",
+        "view": "Assisi rooftops + basilica glimpse"
+      },
+      "amenities": [
+        "Wake up to church bells (30m from Basilica)",
+        "Cool summers guaranteed (A/C + heating)",
+        "Lightning-fast WiFi for sharing memories",
+        "Freshly laundered luxury linens",
+        "Private garden oasis in city center",
+        "Coffee & tea making facilities"
+      ],
+      "gallery": {
+        "main": "Private rooftop garden",
+        "interior": "Garden room interior",
+        "bathroom": "Luxury bathroom",
+        "view": "Panoramic view from room",
+        "details": "Room amenities details",
+        "ambiance": "Evening garden ambiance"
+      }
+    },
+    "terrace": {
+      "heroTitle": "Panoramic Terrace Apartment",
+      "heroSubtitle": "Perfect for 2 guests",
+      "heroAlt": "Panoramic Terrace Apartment with valley views",
+      "title": "Your Private Sunset Sanctuary",
+      "subtitle": "Experience Assisi's most breathtaking sunsets from your private panoramic terrace",
+      "description": "Experience Assisi's most breathtaking sunsets from your private panoramic terrace. This romantic apartment features a full kitchen for intimate dinners, an independent entrance for complete privacy, and unobstructed valley views that stretch to the horizon.",
+      "descriptionExtra": "Located in the historic center just steps from Santa Chiara Basilica, you'll enjoy the perfect blend of authentic medieval atmosphere and modern luxury amenities. The apartment's elevated position provides a peaceful retreat while keeping you connected to Assisi's spiritual heart.",
+      "details": {
+        "size": "Full apartment + terrace",
+        "bed": "Queen size luxury mattress",
+        "kitchen": "Full equipped kitchen",
+        "terrace": "Private panoramic terrace",
+        "view": "Unobstructed valley views"
+      },
+      "amenities": [
+        "Sunset terrace with valley views",
+        "Full kitchen for romantic dinners",
+        "Independent entrance for privacy",
+        "Lightning-fast WiFi for sharing memories",
+        "Freshly laundered luxury linens",
+        "Coffee & tea making facilities"
+      ],
+      "gallery": {
+        "main": "Panoramic terrace with valley views",
+        "interior": "Terrace apartment interior",
+        "bathroom": "Modern bathroom",
+        "view": "Sunset views from terrace",
+        "kitchen": "Kitchen and living area",
+        "ambiance": "Evening terrace ambiance"
+      }
+    },
+    "stoneVault": {
+      "heroTitle": "Historic Stone Vault Apartment",
+      "heroSubtitle": "Perfect for up to 4 guests",
+      "heroAlt": "Historic Stone Vault Apartment with 13th century architecture",
+      "title": "Your Medieval Living Experience",
+      "subtitle": "Perfect for history lovers and families seeking authentic character",
+      "description": "Step back in time within the authentic 13th century stone vaulted ceilings of this remarkable apartment. The historic architecture creates a unique atmosphere - cool in summer thanks to natural stone insulation, warm with character year-round. Modern comforts including a full kitchen, king bed, and queen sofa bed blend seamlessly with medieval charm. Experience Assisi as it was meant to be lived, surrounded by centuries of history while enjoying contemporary amenities.",
+      "details": {
+        "architecture": "13th century stone vaults",
+        "beds": "King bed + queen sofa bed",
+        "bathroom": "Modern amenities",
+        "kitchen": "Full equipped kitchen",
+        "capacity": "Up to 4 guests"
+      },
+      "amenities": [
+        "Authentic 13th century stone vaulted ceilings",
+        "Cool summers guaranteed (natural stone insulation)",
+        "Full kitchen with modern appliances",
+        "King bed + queen sofa bed (sleeps 4)",
+        "Lightning-fast WiFi in historic setting",
+        "Unique medieval architectural features"
+      ],
+      "gallery": {
+        "main": "Historic stone vault apartment",
+        "interior": "13th century vaulted ceilings",
+        "bathroom": "Modern bathroom in historic setting",
+        "kitchen": "Equipped kitchen",
+        "vaults": "Authentic medieval architecture",
+        "living": "Stone vault living space"
+      }
+    },
+    "modern": {
+      "heroTitle": "Contemporary Luxury Apartment",
+      "heroSubtitle": "Perfect for up to 4 guests",
+      "heroAlt": "Contemporary Luxury Apartment with modern design and emotional lighting",
+      "title": "Your Contemporary Urban Retreat",
+      "subtitle": "Perfect for families and groups seeking modern comfort",
+      "description": "Experience the perfect blend of historic Assisi charm and contemporary luxury. Our recently renovated apartment features emotional lighting, a king-size bed plus queen sofa bed, and a full modern kitchen. The spacious bathroom with sophisticated lighting creates an ambiance of pure relaxation. Ideal for remote workers and families, this contemporary space offers all modern comforts while immersing you in Assisi's timeless atmosphere.",
+      "details": {
+        "size": "Full luxury apartment",
+        "beds": "King bed + queen sofa bed",
+        "bathroom": "Spacious with emotional lighting",
+        "kitchen": "Full modern kitchen",
+        "capacity": "Up to 4 guests"
+      },
+      "amenities": [
+        "Recently renovated with contemporary design",
+        "Spacious bathroom with emotional lighting",
+        "Full modern kitchen with all appliances",
+        "King bed + queen sofa bed (sleeps 4)",
+        "Lightning-fast WiFi for remote work",
+        "Contemporary furnishing & smart features"
+      ],
+      "gallery": {
+        "main": "Contemporary luxury apartment",
+        "interior": "Modern living space",
+        "bathroom": "Spacious bathroom with emotional lighting",
+        "kitchen": "Modern kitchen area",
+        "bedroom": "Contemporary bedroom",
+        "living": "Modern apartment interior"
+      }
+    }
+  },
+  "bookingWidget": {
+    "bookYourStay": "Book Your Stay",
+    "from": "from",
+    "perNight": "/night",
+    "upTo": "up to",
+    "guests": "guests",
+    "selectDates": "Select Dates",
+    "invalidDates": "Invalid Dates",
+    "minimumNights": "Minimum {min} nights required",
+    "datesUnavailable": "Dates Unavailable",
+    "reserve": "Reserve for",
+    "checking": "Checking...",
+    "loading": "Loading booking options...",
+    "youWontBeCharged": "You won't be charged yet",
+    "avg": "avg",
+    "night": "night",
+    "nights": "nights",
+    "cleaningFee": "Cleaning fee",
+    "total": "Total",
+    "bookingConfirmed": "Booking Confirmed!",
+    "confirmation": "Confirmation",
+    "guest": "Guest",
+    "room": "Room",
+    "bookAnother": "Book Another Stay",
+    "completeBooking": "Complete Your Booking"
+  },
+  "about": {
+    "heroTitle": "Welcome to Terrazza Santa Chiara",
+    "heroSubtitle": "Where History Meets Hospitality in the Heart of Assisi",
+    "heroAlt": "Terrazza Santa Chiara Property",
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Terrazza Santa Chiara was born from our deep love for Assisi's spiritual energy and architectural beauty. After years of traveling the world, we discovered this extraordinary property - the only accommodation just 30 meters from Santa Chiara Basilica.",
+      "paragraph2": "We've carefully restored each room to honor its medieval heritage while adding the modern luxuries today's travelers deserve. Our mission is simple: help you experience authentic Assisi like a local, not a tourist."
+    },
+    "highlights": {
+      "location": {
+        "title": "Prime Location",
+        "description": "Only 30 meters from Santa Chiara Basilica - the closest accommodation to this sacred site"
+      },
+      "experience": {
+        "title": "Authentic Experience",
+        "description": "Medieval architecture meets modern comfort in every carefully restored room"
+      }
+    },
+    "policies": {
+      "title": "Policies & Services",
+      "subtitle": "Everything you need to know for a comfortable and memorable stay",
+      "checkInTimes": {
+        "title": "Check-in Times",
+        "details": "3:00 PM - 8:00 PM (Late arrival €20)"
+      },
+      "cancellation": {
+        "title": "Cancellation",
+        "details": "Free cancellation up to 48 hours before arrival"
+      },
+      "petPolicy": {
+        "title": "Pet Policy",
+        "details": "Small pets welcome (€20/night additional fee)"
+      },
+      "languages": {
+        "title": "Languages",
+        "details": "English, Italian, basic French & German"
+      }
+    },
+    "services": {
+      "title": "Complimentary Services",
+      "items": [
+        "Personal concierge assistance",
+        "Restaurant reservations",
+        "Local tour booking",
+        "Transportation arrangements",
+        "Spiritual site guidance",
+        "Hidden gems recommendations"
+      ]
+    },
+    "checkInOut": {
+      "title": "Check-in & Check-out",
+      "checkIn": "Check-in",
+      "checkInTime": "3:00 PM - 8:00 PM",
+      "checkOut": "Check-out",
+      "checkOutTime": "11:00 AM",
+      "lateArrival": "Late arrival (after 8:00 PM): €20 surcharge",
+      "lateCheckout": "Late checkout available upon request"
+    }
+  },
+  "contact": {
+    "pageTitle": "Contact Us",
+    "pageSubtitle": "Ready to experience authentic Assisi? We're here to help plan your perfect stay.",
+    "form": {
+      "title": "Send Us an Inquiry",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "country": "Country",
+      "selectCountry": "Select your country",
+      "countries": {
+        "italy": "Italy",
+        "usa": "United States",
+        "uk": "United Kingdom",
+        "germany": "Germany",
+        "france": "France",
+        "spain": "Spain",
+        "other": "Other"
+      },
+      "checkInDate": "Check-in Date",
+      "checkOutDate": "Check-out Date",
+      "selectDate": "Select date",
+      "guests": "Number of Guests",
+      "selectGuests": "Select guests",
+      "guest": "Guest",
+      "guestPlural": "Guests",
+      "roomPreference": "Room Preference",
+      "selectRoom": "Select room type",
+      "roomOptions": {
+        "garden": "Garden Room Sanctuary",
+        "terrace": "Panoramic Terrace Apartment",
+        "modern": "Contemporary Luxury Apartment",
+        "stone": "Historic Stone Vault Apartment",
+        "any": "Any Available"
+      },
+      "inquiryType": "Inquiry Type",
+      "selectInquiry": "What can we help you with?",
+      "inquiryOptions": {
+        "booking": "Room Booking",
+        "availability": "Check Availability",
+        "group": "Group Booking",
+        "services": "Local Services & Tours",
+        "special": "Special Occasions",
+        "other": "General Inquiry"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your perfect Assisi experience...",
+      "submit": "Send Inquiry",
+      "submitting": "Sending...",
+      "required": "*",
+      "successMessage": "Inquiry Sent Successfully! We'll respond to your message within 24 hours."
+    },
+    "directContact": {
+      "title": "Get In Touch Directly",
+      "availability": "Available 9:00 AM - 8:00 PM daily",
+      "address": {
+        "title": "Address",
+        "details": "Via Sermei, 06081 Assisi PG, Italy",
+        "action": "View on Google Maps"
+      },
+      "phone": {
+        "title": "Phone",
+        "details": "+39 075 XXX XXXX",
+        "action": "Call Now"
+      },
+      "email": {
+        "title": "Email",
+        "details": "info@terrazzasantachiara.com",
+        "action": "Send Email"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "details": "Message us directly",
+        "action": "Open WhatsApp"
+      }
+    },
+    "location": {
+      "title": "Location & Getting Here",
+      "mapPlaceholder": "Google Maps Integration",
+      "mapAddress": "Via Sermei, Assisi",
+      "directions": {
+        "title": "Walking Directions",
+        "trainStation": {
+          "from": "Train Station",
+          "time": "12-minute uphill walk",
+          "description": "Pleasant walk through medieval streets"
+        },
+        "sanFrancesco": {
+          "from": "Basilica San Francesco",
+          "time": "15-minute scenic walk",
+          "description": "Beautiful route through historic center"
+        },
+        "parking": {
+          "from": "Parcheggio Giovanni Paolo II",
+          "time": "5-minute walk",
+          "description": "Closest parking to our property"
+        }
+      }
+    },
+    "recommendations": {
+      "title": "Local Recommendations",
+      "restaurants": {
+        "title": "Restaurants",
+        "items": ["La Fortezza", "Osteria del Sole", "Trattoria degli Umbri"]
+      },
+      "hiddenGems": {
+        "title": "Hidden Gems",
+        "items": ["Rocca Maggiore sunset view", "Via Portica shops", "Medieval fountain square"]
+      },
+      "spiritualSites": {
+        "title": "Spiritual Sites",
+        "items": ["Santa Chiara (30m)", "San Francesco (800m)", "San Rufino Cathedral (400m)"]
+      }
+    }
+  },
+  "footer": {
+    "contact": {
+      "title": "Contact",
+      "address": "Assisi, Italy",
+      "phone": "+39 XXX XXX XXXX",
+      "email": "info@terrazzasantachiara.com"
+    },
+    "accommodations": {
+      "title": "Our Accommodations",
+      "gardenRoom": "Garden Room Sanctuary",
+      "stoneVault": "Historic Stone Vault",
+      "terrace": "Panoramic Terrace",
+      "modern": "Contemporary Luxury"
+    },
+    "information": {
+      "title": "Information",
+      "aboutUs": "About Us",
+      "contact": "Contact",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    },
+    "copyright": "© 2026 Terrazza Santa Chiara - All rights reserved"
   }
 }
