@@ -1,6 +1,6 @@
 "use client";
 
-// src/components/booking/BookingForm.tsx
+// src/components/booking/BookingForm.tsx - WITH STRIPE INTEGRATION
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
@@ -15,8 +15,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Users, ArrowLeft, ArrowRight, CreditCard, Shield, Loader2, Check } from 'lucide-react';
+import { Users, ArrowLeft, ArrowRight, CreditCard, Loader2, Check, AlertCircle } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { StripeProvider } from './StripeProvider';
+import { PaymentForm } from './PaymentForm';
+import { CreatePaymentIntentResponse } from '@/types/booking';
 
 interface BookingFormData {
   firstName: string;
@@ -30,9 +33,14 @@ interface BookingFormData {
 }
 
 interface BookingFormProps {
+  roomId: string;
+  roomName: string;
+  checkIn: string;
+  checkOut: string;
   totalPrice: number;
   nights: number;
-  onComplete: (bookingData: BookingFormData) => void;
+  onComplete: (bookingId: string) => void;
+  onCancel: () => void;
   className?: string;
 }
 
@@ -43,13 +51,20 @@ const countries = [
 ];
 
 const BookingForm: React.FC<BookingFormProps> = ({
+  roomId,
+  roomName,
+  checkIn,
+  checkOut,
   totalPrice,
   nights,
   onComplete,
+  onCancel,
   className
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [submitting, setSubmitting] = useState(false);
+  const [isCreatingPayment, setIsCreatingPayment] = useState(false);
+  const [paymentData, setPaymentData] = useState<CreatePaymentIntentResponse | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
   const [formData, setFormData] = useState<BookingFormData>({
     firstName: '',
     lastName: '',
@@ -96,25 +111,64 @@ const BookingForm: React.FC<BookingFormProps> = ({
   };
 
   const handlePrevious = () => {
+    if (currentStep === 3 && paymentData) {
+      setPaymentData(null);
+      setPaymentError(null);
+    }
     setCurrentStep(prev => Math.max(prev - 1, 1));
   };
 
-  const handleSubmit = async () => {
-    if (!validateStep(3) || submitting) return;
+  const handleProceedToPayment = async () => {
+    if (!validateStep(3)) return;
 
-    setSubmitting(true);
+    setIsCreatingPayment(true);
+    setPaymentError(null);
+
     try {
-      await onComplete(formData);
+      const response = await fetch('/api/bookings/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          room_id: roomId,
+          check_in: checkIn,
+          check_out: checkOut,
+          guest_name: `${formData.firstName} ${formData.lastName}`,
+          guest_email: formData.email,
+          guest_phone: formData.phone || undefined,
+          guest_country: formData.country,
+          guests_count: parseInt(formData.guests),
+          total_price: totalPrice,
+          special_requests: formData.specialRequests || undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        setPaymentError(data.error);
+        return;
+      }
+
+      setPaymentData(data);
     } catch (error) {
-      console.error('Booking submission failed:', error);
+      setPaymentError('Failed to initialize payment. Please try again.');
     } finally {
-      setSubmitting(false);
+      setIsCreatingPayment(false);
     }
+  };
+
+  const handlePaymentSuccess = () => {
+    if (paymentData) {
+      onComplete(paymentData.bookingId);
+    }
+  };
+
+  const handlePaymentError = (error: string) => {
+    setPaymentError(error);
   };
 
   const updateFormData = (field: keyof BookingFormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
@@ -131,7 +185,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
             <Select
               value={formData.guests}
               onValueChange={(value) => updateFormData('guests', value)}
-              disabled={submitting}
             >
               <SelectTrigger className={cn("mt-1", errors.guests && "border-destructive")}>
                 <div className="flex items-center">
@@ -151,12 +204,20 @@ const BookingForm: React.FC<BookingFormProps> = ({
             <h4 className="font-medium mb-2">Your Stay Summary</h4>
             <div className="text-sm space-y-1">
               <div className="flex justify-between">
-                <span>Duration:</span>
-                <span>{nights} night{nights > 1 ? 's' : ''}</span>
+                <span>Room:</span>
+                <span>{roomName}</span>
               </div>
               <div className="flex justify-between">
-                <span>Guests:</span>
-                <span>{formData.guests} guest{formData.guests !== '1' ? 's' : ''}</span>
+                <span>Check-in:</span>
+                <span>{new Date(checkIn).toLocaleDateString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Check-out:</span>
+                <span>{new Date(checkOut).toLocaleDateString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Duration:</span>
+                <span>{nights} night{nights > 1 ? 's' : ''}</span>
               </div>
               <div className="flex justify-between font-semibold border-t pt-2 mt-2">
                 <span>Total:</span>
@@ -183,7 +244,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
               onChange={(e) => updateFormData('firstName', e.target.value)}
               className={cn("mt-1", errors.firstName && "border-destructive")}
               placeholder="Enter your first name"
-              disabled={submitting}
             />
             {errors.firstName && <p className="text-destructive text-sm mt-1">{errors.firstName}</p>}
           </div>
@@ -196,7 +256,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
               onChange={(e) => updateFormData('lastName', e.target.value)}
               className={cn("mt-1", errors.lastName && "border-destructive")}
               placeholder="Enter your last name"
-              disabled={submitting}
             />
             {errors.lastName && <p className="text-destructive text-sm mt-1">{errors.lastName}</p>}
           </div>
@@ -210,7 +269,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
               onChange={(e) => updateFormData('email', e.target.value)}
               className={cn("mt-1", errors.email && "border-destructive")}
               placeholder="your@email.com"
-              disabled={submitting}
             />
             {errors.email && <p className="text-destructive text-sm mt-1">{errors.email}</p>}
           </div>
@@ -220,7 +278,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
             <Select
               value={formData.country}
               onValueChange={(value) => updateFormData('country', value)}
-              disabled={submitting}
             >
               <SelectTrigger className={cn("mt-1", errors.country && "border-destructive")}>
                 <SelectValue placeholder="Select your country" />
@@ -244,7 +301,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
               onChange={(e) => updateFormData('phone', e.target.value)}
               className="mt-1"
               placeholder="+39 123 456 7890"
-              disabled={submitting}
             />
           </div>
 
@@ -257,7 +313,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
               className="mt-1"
               placeholder="Any special requests or dietary requirements..."
               rows={3}
-              disabled={submitting}
             />
           </div>
         </div>
@@ -271,7 +326,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
         <h3 className="text-xl font-playfair font-semibold mb-4">Payment & Confirmation</h3>
 
         <div className="space-y-6">
-          {/* Payment Summary */}
+          {/* Booking Summary */}
           <div className="bg-stone-light rounded-lg p-4">
             <h4 className="font-medium mb-3">Booking Summary</h4>
             <div className="space-y-2 text-sm">
@@ -284,8 +339,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                 <span>{formData.email}</span>
               </div>
               <div className="flex justify-between">
-                <span>Guests:</span>
-                <span>{formData.guests}</span>
+                <span>Room:</span>
+                <span>{roomName}</span>
               </div>
               <div className="flex justify-between">
                 <span>Duration:</span>
@@ -298,22 +353,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
             </div>
           </div>
 
-          {/* Mock Payment Form */}
-          <div className="border rounded-lg p-4">
-            <div className="flex items-center gap-2 mb-4">
-              <CreditCard className="w-5 h-5 text-sage" />
-              <h4 className="font-medium">Payment Method</h4>
-            </div>
-
-            <div className="bg-muted/30 rounded-lg p-4 text-center">
-              <Shield className="w-8 h-8 text-sage mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground">
-                This is a demo booking system.<br/>
-                No actual payment will be processed.
-              </p>
-            </div>
-          </div>
-
           {/* Terms Agreement */}
           <div className="space-y-4">
             <div className="flex items-start space-x-3">
@@ -322,7 +361,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
                 checked={formData.agreeToTerms}
                 onCheckedChange={(checked) => updateFormData('agreeToTerms', !!checked)}
                 className={cn(errors.agreeToTerms && "border-destructive")}
-                disabled={submitting}
               />
               <div className="grid gap-1.5 leading-none">
                 <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
@@ -335,6 +373,67 @@ const BookingForm: React.FC<BookingFormProps> = ({
             </div>
             {errors.agreeToTerms && <p className="text-destructive text-sm">{errors.agreeToTerms}</p>}
           </div>
+
+          {/* Payment Error */}
+          {paymentError && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-start gap-2">
+              <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span>{paymentError}</span>
+            </div>
+          )}
+
+          {/* Payment Section */}
+          {paymentData ? (
+            <div className="border rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-4">
+                <CreditCard className="w-5 h-5 text-sage" />
+                <h4 className="font-medium">Payment Details</h4>
+              </div>
+
+              <StripeProvider clientSecret={paymentData.clientSecret}>
+                <PaymentForm
+                  bookingId={paymentData.bookingId}
+                  totalPrice={totalPrice}
+                  onSuccess={handlePaymentSuccess}
+                  onError={handlePaymentError}
+                  dict={{
+                    pay: 'Pay',
+                    processing: 'Processing...',
+                    securedByStripe: 'Secured by Stripe. Your card details are encrypted.',
+                  }}
+                />
+              </StripeProvider>
+            </div>
+          ) : (
+            <div className="border rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-4">
+                <CreditCard className="w-5 h-5 text-sage" />
+                <h4 className="font-medium">Payment Method</h4>
+              </div>
+
+              <p className="text-sm text-muted-foreground mb-4">
+                Click the button below to proceed to secure payment.
+              </p>
+
+              <Button
+                onClick={handleProceedToPayment}
+                disabled={!formData.agreeToTerms || isCreatingPayment}
+                className="w-full bg-terracotta hover:bg-terracotta/90"
+              >
+                {isCreatingPayment ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Preparing payment...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Proceed to Payment
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -374,43 +473,28 @@ const BookingForm: React.FC<BookingFormProps> = ({
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between pt-6 border-t">
-        <Button
-          variant="outline"
-          onClick={handlePrevious}
-          disabled={currentStep === 1 || submitting}
-          className="flex items-center"
-        >
-          <ArrowLeft size={16} className="mr-2" />
-          Previous
-        </Button>
+      {!paymentData && (
+        <div className="flex justify-between pt-6 border-t">
+          <Button
+            variant="outline"
+            onClick={currentStep === 1 ? onCancel : handlePrevious}
+            className="flex items-center"
+          >
+            <ArrowLeft size={16} className="mr-2" />
+            {currentStep === 1 ? 'Cancel' : 'Previous'}
+          </Button>
 
-        {currentStep < 3 ? (
-          <Button
-            onClick={handleNext}
-            disabled={submitting}
-            className="flex items-center bg-sage hover:bg-sage/90"
-          >
-            Next
-            <ArrowRight size={16} className="ml-2" />
-          </Button>
-        ) : (
-          <Button
-            onClick={handleSubmit}
-            disabled={submitting}
-            className="flex items-center bg-terracotta hover:bg-terracotta/90 min-w-[120px]"
-          >
-            {submitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Booking...
-              </>
-            ) : (
-              'Confirm Booking'
-            )}
-          </Button>
-        )}
-      </div>
+          {currentStep < 3 && (
+            <Button
+              onClick={handleNext}
+              className="flex items-center bg-sage hover:bg-sage/90"
+            >
+              Next
+              <ArrowRight size={16} className="ml-2" />
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

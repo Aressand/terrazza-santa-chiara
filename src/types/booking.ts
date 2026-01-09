@@ -28,6 +28,21 @@ export interface BookingFormData {
   agreeToTerms: boolean;
 }
 
+// Booking status types
+export type BookingStatus =
+  | 'pending'           // Initial state
+  | 'awaiting_payment'  // PaymentIntent created, waiting for card
+  | 'confirmed'         // Payment succeeded
+  | 'cancelled'         // Cancelled by user/admin
+  | 'refunded';         // Payment refunded
+
+export type PaymentStatus =
+  | 'pending'     // No payment attempt yet
+  | 'processing'  // Payment in progress
+  | 'succeeded'   // Payment completed
+  | 'failed'      // Payment failed
+  | 'refunded';   // Refunded
+
 export interface BookingSubmission {
   room_id: string;
   check_in: string;  // ISO date string
@@ -40,7 +55,7 @@ export interface BookingSubmission {
   total_nights: number;
   total_price: number;
   special_requests: string;
-  status: 'confirmed' | 'pending' | 'cancelled';
+  status: BookingStatus;
 }
 
 export interface BookingConfirmation {
@@ -120,4 +135,33 @@ export interface AvailabilityRecord {
   block_type: BlockType;
   created_at: string;
   platform_source?: string; // Optional: track which platform created the block
+}
+
+// Stripe Payment Types
+export interface BookingWithPayment extends BookingConfirmation {
+  stripe_payment_intent_id?: string;
+  stripe_charge_id?: string;
+  payment_status: PaymentStatus;
+  payment_amount?: number;
+  payment_currency?: string;
+  paid_at?: string;
+}
+
+export interface CreatePaymentIntentRequest {
+  room_id: string;
+  check_in: string;      // YYYY-MM-DD
+  check_out: string;     // YYYY-MM-DD
+  guest_name: string;
+  guest_email: string;
+  guest_phone?: string;
+  guest_country?: string;
+  guests_count: number;
+  total_price: number;   // in EUR (e.g., 150.00)
+  special_requests?: string;
+}
+
+export interface CreatePaymentIntentResponse {
+  clientSecret: string;
+  bookingId: string;
+  paymentIntentId: string;
 }

@@ -53,12 +53,13 @@ terrazzasantachiara.com/admin/...       → Admin (NO i18n, Italian only)
 - [x] Move public pages into `app/[lang]/` folder
 - [x] Update all pages to receive and use `lang` param
 - [x] Update all hardcoded Italian text to use translations
+- [X] Implement generateMetadata()
 
 
 ### 6.5 SEO for i18n
-- [ ] Add hreflang tags to all pages
-- [ ] Update sitemap.ts with all language variants
-- [ ] Update metadata with proper locale
+- [X] Add hreflang tags to all pages
+- [X] Update sitemap.ts with all language variants
+- [X] Update metadata with proper locale
 
 ---
 

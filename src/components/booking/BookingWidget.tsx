@@ -11,15 +11,15 @@ import BookingCalendar from './BookingCalendar';
 import BookingForm from './BookingForm';
 import { differenceInDays } from "date-fns";
 import { Users, Check, AlertCircle, Loader2 } from 'lucide-react';
-import { 
-  useRoomData, 
-  useAvailabilityCheck, 
-  useCreateBooking,
-  usePricingCalculation 
+import {
+  useRoomData,
+  useAvailabilityCheck,
+  usePricingCalculation
 } from '@/hooks/useBooking';
 import { useRoomUnavailableDates } from '@/hooks/useRoomUnavailableDates';
 import type { RoomType } from '@/utils/roomMapping';
-import type { BookingFormData, BookingConfirmation, ConflictType } from '@/types/booking';
+import type { BookingConfirmation, ConflictType } from '@/types/booking';
+import { format } from 'date-fns';
 
 interface BookingWidgetTranslations {
   bookYourStay: string;
@@ -138,8 +138,8 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
   const { roomData, loading: roomLoading, error: roomError } = useRoomData(roomType);
   const { unavailableDates, loading: unavailabilityLoading } = useRoomUnavailableDates(roomType);
   const { checkAvailability, checking } = useAvailabilityCheck();
-  const { createBooking, submitting, error: bookingError } = useCreateBooking();
   const { calculatePricing, loading: pricingLoading } = usePricingCalculation(roomType);
+  const [bookingError, setBookingError] = useState<string | null>(null);
 
   // Derived state (keeping original + adding minimum stay)
   const nights = checkIn && checkOut ? differenceInDays(checkOut, checkIn) : 0;
@@ -189,32 +189,47 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
   // Event handlers (keeping original structure)
   const handleBookingStart = () => {
     if (!canBook) return;
+    setBookingError(null);
     setIsBookingOpen(true);
   };
 
-  const handleBookingComplete = async (formData: BookingFormData) => {
+  const handleBookingComplete = async (bookingId: string) => {
     if (!checkIn || !checkOut || !pricing) return;
 
+    // Fetch the booking details to show confirmation
     try {
-      const confirmation = await createBooking(
-        roomType,
-        checkIn,
-        checkOut,
-        formData,
-        pricing
-      );
+      const response = await fetch(`/api/bookings/${bookingId}/status`);
+      const booking = await response.json();
 
-      if (confirmation) {
+      if (booking && !booking.error) {
         setBookingConfirmation({
-          ...confirmation,
-          room_name: roomName
+          id: booking.id,
+          confirmation_number: booking.id.substring(0, 8).toUpperCase(),
+          guest_name: booking.guest_name,
+          guest_email: booking.guest_email,
+          room_name: roomName,
+          check_in: booking.check_in,
+          check_out: booking.check_out,
+          total_nights: booking.total_nights,
+          total_price: booking.total_price,
+          guests_count: 2,
+          special_requests: '',
+          status: booking.status,
+          created_at: new Date().toISOString(),
         });
         setIsBookingComplete(true);
         setIsBookingOpen(false);
       }
     } catch (error) {
-      console.error('Booking submission failed:', error);
+      console.error('Failed to fetch booking details:', error);
+      // Still show success since payment went through
+      setIsBookingComplete(true);
+      setIsBookingOpen(false);
     }
+  };
+
+  const handleBookingCancel = () => {
+    setIsBookingOpen(false);
   };
 
   const handleNewBooking = () => {
@@ -403,16 +418,23 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
 
       {/* Booking dialog (keeping original) */}
       <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{t.completeBooking}</DialogTitle>
           </DialogHeader>
 
-          <BookingForm
-            nights={nights}
-            totalPrice={pricing?.totalPrice || 0}
-            onComplete={handleBookingComplete}
-          />
+          {roomData && checkIn && checkOut && (
+            <BookingForm
+              roomId={roomData.id}
+              roomName={roomName}
+              checkIn={format(checkIn, 'yyyy-MM-dd')}
+              checkOut={format(checkOut, 'yyyy-MM-dd')}
+              nights={nights}
+              totalPrice={pricing?.totalPrice || 0}
+              onComplete={handleBookingComplete}
+              onCancel={handleBookingCancel}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </Card>
