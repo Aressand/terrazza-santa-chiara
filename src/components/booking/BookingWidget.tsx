@@ -48,6 +48,70 @@ interface BookingWidgetTranslations {
   completeBooking: string;
 }
 
+interface BookingCalendarTranslations {
+  selectCheckIn: string;
+  selectCheckOut: string;
+  selectDates: string;
+  selectCheckoutDate: string;
+  clearDates: string;
+  night: string;
+  nights: string;
+  minimumNightsRequired: string;
+}
+
+interface BookingFormTranslations {
+  guestDetails: string;
+  numberOfGuests: string;
+  oneGuest: string;
+  twoGuests: string;
+  yourStaySummary: string;
+  room: string;
+  checkIn: string;
+  checkOut: string;
+  duration: string;
+  night: string;
+  nights: string;
+  total: string;
+  contactInformation: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  selectCountry: string;
+  phone: string;
+  phoneOptional: string;
+  specialRequests: string;
+  specialRequestsPlaceholder: string;
+  paymentConfirmation: string;
+  bookingSummary: string;
+  guest: string;
+  totalAmount: string;
+  paymentMethod: string;
+  proceedToPayment: string;
+  preparingPayment: string;
+  clickToProceed: string;
+  agreeToTerms: string;
+  agreeToTermsDescription: string;
+  paymentDetails: string;
+  cancel: string;
+  previous: string;
+  next: string;
+  pay: string;
+  processing: string;
+  securedByStripe: string;
+  enterFirstName: string;
+  enterLastName: string;
+  enterEmail: string;
+  enterPhone: string;
+  firstNameRequired: string;
+  lastNameRequired: string;
+  emailRequired: string;
+  emailInvalid: string;
+  countryRequired: string;
+  guestsRequired: string;
+  termsRequired: string;
+}
+
 interface BookingWidgetProps {
   roomType: RoomType;
   roomName: string;
@@ -57,6 +121,9 @@ interface BookingWidgetProps {
   presetCheckOut?: Date;
   presetGuests?: number;
   translations?: BookingWidgetTranslations;
+  calendarTranslations?: BookingCalendarTranslations;
+  formTranslations?: BookingFormTranslations;
+  lang?: string;
 }
 
 // 🆕 ENHANCED: Conflict message generation with minimum stay support
@@ -123,7 +190,10 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
   presetCheckIn,
   presetCheckOut,
   presetGuests,
-  translations = defaultTranslations
+  translations = defaultTranslations,
+  calendarTranslations,
+  formTranslations,
+  lang = 'en'
 }) => {
   const t = translations;
   // State management (keeping original structure)
@@ -344,6 +414,8 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({
             onCheckOutSelect={(date) => setCheckOut(date ?? null)}
             unavailableDates={unavailableDates}
             minStay={1}
+            translations={calendarTranslations}
+            lang={lang}
           />
           
           {/* Nights and pricing display with detailed breakdown */}

@@ -1,8 +1,9 @@
 "use client";
 
-// src/components/booking/BookingCalendar.tsx - IMPROVED: Continuous Date Selection
+// src/components/booking/BookingCalendar.tsx - Continuous Date Selection with i18n
 import React, { useState } from 'react';
 import { format, addDays, differenceInDays, isAfter, isBefore, isWithinInterval } from "date-fns";
+import { it, enUS } from "date-fns/locale";
 import { CalendarIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -13,6 +14,28 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
+interface BookingCalendarTranslations {
+  selectCheckIn: string;
+  selectCheckOut: string;
+  selectDates: string;
+  selectCheckoutDate: string;
+  clearDates: string;
+  night: string;
+  nights: string;
+  minimumNightsRequired: string;
+}
+
+const defaultTranslations: BookingCalendarTranslations = {
+  selectCheckIn: "Select check-in date",
+  selectCheckOut: "Select check-out date",
+  selectDates: "Select dates",
+  selectCheckoutDate: "Select checkout",
+  clearDates: "Clear dates",
+  night: "night",
+  nights: "nights",
+  minimumNightsRequired: "Minimum {min} nights required"
+};
+
 interface BookingCalendarProps {
   checkIn: Date | undefined;
   checkOut: Date | undefined;
@@ -21,6 +44,8 @@ interface BookingCalendarProps {
   unavailableDates?: Date[];
   minStay?: number;
   className?: string;
+  translations?: BookingCalendarTranslations;
+  lang?: string;
 }
 
 const BookingCalendar: React.FC<BookingCalendarProps> = ({
@@ -30,8 +55,12 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
   onCheckOutSelect,
   unavailableDates = [],
   minStay = 1,
-  className
+  className,
+  translations = defaultTranslations,
+  lang = 'en'
 }) => {
+  const t = translations;
+  const locale = lang === 'it' ? it : enUS;
   const [isOpen, setIsOpen] = useState(false);
   const [selectionMode, setSelectionMode] = useState<'check-in' | 'check-out'>('check-in');
 
@@ -46,37 +75,22 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
     return isWithinInterval(date, { start: checkIn, end: checkOut });
   };
 
-  const isDateInTentativeRange = (date: Date, hoverDate: Date | null) => {
-    if (!checkIn || !hoverDate || checkOut) return false;
-    const start = isBefore(checkIn, hoverDate) ? checkIn : hoverDate;
-    const end = isAfter(checkIn, hoverDate) ? checkIn : hoverDate;
-    return isWithinInterval(date, { start, end });
-  };
-
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
 
     if (selectionMode === 'check-in' || !checkIn) {
-      // First click: Set check-in
       onCheckInSelect(date);
-      onCheckOutSelect(undefined); // Clear checkout
+      onCheckOutSelect(undefined);
       setSelectionMode('check-out');
-
-      // Calendar stays open for checkout selection
     } else if (selectionMode === 'check-out') {
-      // Second click: Set check-out
       if (isBefore(date, checkIn)) {
-        // If selected date is before check-in, swap them
         onCheckInSelect(date);
         onCheckOutSelect(checkIn);
       } else if (date <= addDays(checkIn, minStay - 1)) {
-        // If too close, set minimum stay
         onCheckOutSelect(addDays(checkIn, minStay));
       } else {
         onCheckOutSelect(date);
       }
-
-      // Close calendar after both dates are selected
       setIsOpen(false);
       setSelectionMode('check-in');
     }
@@ -99,25 +113,24 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
 
   const getButtonText = () => {
     if (checkIn && checkOut) {
-      return `${format(checkIn, "MMM dd")} - ${format(checkOut, "MMM dd")}`;
+      return `${format(checkIn, "dd MMM", { locale })} - ${format(checkOut, "dd MMM", { locale })}`;
     } else if (checkIn) {
-      return `${format(checkIn, "MMM dd")} - Select checkout`;
+      return `${format(checkIn, "dd MMM", { locale })} - ${t.selectCheckoutDate}`;
     } else {
-      return "Select dates";
+      return t.selectDates;
     }
   };
 
   const getButtonVariant = (): "default" | "outline" | "destructive" | "secondary" | "ghost" | "link" | "terracotta" | "sage-outline" | "stone" => {
-    if (checkIn && !checkOut) return "outline"; // Partial selection
+    if (checkIn && !checkOut) return "outline";
     return "outline";
   };
 
   return (
     <div className={cn("space-y-4", className)}>
-      {/* Single Date Range Selector */}
       <div className="space-y-2">
         <label className="text-sm font-medium text-foreground">
-          {selectionMode === 'check-in' ? 'Select check-in date' : 'Select check-out date'}
+          {selectionMode === 'check-in' ? t.selectCheckIn : t.selectCheckOut}
         </label>
 
         <Popover open={isOpen} onOpenChange={handleOpenChange}>
@@ -127,7 +140,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
               className={cn(
                 "w-full justify-start text-left font-normal h-12 border-2 hover:border-sage focus:border-sage transition-colors",
                 !checkIn && "text-muted-foreground",
-                checkIn && !checkOut && "border-sage bg-sage/5" // Highlight during selection
+                checkIn && !checkOut && "border-sage bg-sage/5"
               )}
             >
               <CalendarIcon size={18} className="mr-3 text-sage" />
@@ -151,6 +164,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
                   );
                 }}
                 weekStartsOn={1}
+                locale={locale}
                 initialFocus
                 className="pointer-events-auto"
                 modifiers={{
@@ -170,7 +184,6 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
                 }}
               />
 
-              {/* Action Buttons */}
               {(checkIn || checkOut) && (
                 <div className="mt-3">
                   <Button
@@ -179,7 +192,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
                     onClick={handleClearDates}
                     className="text-muted-foreground hover:text-destructive w-full"
                   >
-                    Clear dates
+                    {t.clearDates}
                   </Button>
                 </div>
               )}
@@ -188,14 +201,13 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
         </Popover>
       </div>
 
-      {/* Nights Display */}
       {nights > 0 && (
         <div className="text-center p-3 bg-stone-light rounded-lg">
           <p className="text-sm text-muted-foreground">
-            <span className="font-semibold text-sage">{nights} night{nights > 1 ? 's' : ''}</span>
+            <span className="font-semibold text-sage">{nights} {nights > 1 ? t.nights : t.night}</span>
             {minStay > 1 && nights < minStay && (
               <span className="text-destructive ml-2">
-                (Minimum {minStay} nights required)
+                ({t.minimumNightsRequired.replace('{min}', String(minStay))})
               </span>
             )}
           </p>

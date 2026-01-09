@@ -2,10 +2,34 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { CreatePaymentIntentRequest } from '@/types/booking';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting check
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+
+    if (!checkRateLimit(ip)) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
     const body: CreatePaymentIntentRequest = await request.json();
+
+    // Honeypot check - extract and remove from body
+    const { website, ...bookingData } = body as any;
+
+    // If honeypot field is filled, it's a bot - return fake success
+    if (website) {
+      console.log('Bot detected via honeypot');
+      return NextResponse.json({
+        clientSecret: 'fake_secret',
+        bookingId: 'fake_id',
+        paymentIntentId: 'fake_pi',
+      });
+    }
 
     // Validate required fields
     const {
@@ -16,7 +40,7 @@ export async function POST(request: NextRequest) {
       guest_email,
       guests_count,
       total_price,
-    } = body;
+    } = bookingData;
 
     if (
       !room_id ||
@@ -62,12 +86,12 @@ export async function POST(request: NextRequest) {
         check_out,
         guest_name,
         guest_email,
-        guest_phone: body.guest_phone || null,
-        guest_country: body.guest_country || null,
+        guest_phone: bookingData.guest_phone || null,
+        guest_country: bookingData.guest_country || null,
         guests_count,
         total_nights: nights,
         total_price,
-        special_requests: body.special_requests || null,
+        special_requests: bookingData.special_requests || null,
         status: 'awaiting_payment',
         payment_status: 'pending',
         payment_amount: amountInCents,

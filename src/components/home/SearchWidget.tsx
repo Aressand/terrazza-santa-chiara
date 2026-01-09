@@ -31,9 +31,10 @@ const formatDateSafely = (date: Date): string => {
 
 interface SearchWidgetProps {
   translations: Dictionary['home']['search'];
+  lang: string;
 }
 
-const SearchWidget = ({ translations: t }: SearchWidgetProps) => {
+const SearchWidget = ({ translations: t, lang }: SearchWidgetProps) => {
   const router = useRouter();
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
@@ -56,7 +57,7 @@ const SearchWidget = ({ translations: t }: SearchWidgetProps) => {
       guests: guests
     });
 
-    router.push(`/search-results?${searchParams.toString()}`);
+    router.push(`/${lang}/search-results?${searchParams.toString()}`);
     setIsLoading(false);
   };
 

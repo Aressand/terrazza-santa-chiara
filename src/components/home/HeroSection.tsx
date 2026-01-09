@@ -6,9 +6,10 @@ const heroBackground = "/images/assisi-hero-bg.jpg";
 
 interface HeroSectionProps {
   dictionary: Dictionary;
+  lang: string;
 }
 
-const HeroSection = ({ dictionary }: HeroSectionProps) => {
+const HeroSection = ({ dictionary, lang }: HeroSectionProps) => {
   const t = dictionary.home.hero;
   const searchT = dictionary.home.search;
 
@@ -43,7 +44,7 @@ const HeroSection = ({ dictionary }: HeroSectionProps) => {
 
           {/* Search Widget */}
           <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <SearchWidget translations={searchT} />
+            <SearchWidget translations={searchT} lang={lang} />
           </div>
 
           {/* Additional Info */}

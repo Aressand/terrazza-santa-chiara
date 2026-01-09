@@ -2,14 +2,35 @@
 
 // src/app/admin/page.tsx - Admin Dashboard
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, DollarSign, Users, TrendingUp, Settings } from 'lucide-react';
+import { Calendar, DollarSign, Users, TrendingUp, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import ICalSyncTester from '@/components/admin/ICalSyncTester';
 
 export default function AdminDashboard() {
+  const [cleanupLoading, setCleanupLoading] = useState(false);
+  const [cleanupResult, setCleanupResult] = useState<string | null>(null);
+
+  const handleCleanup = async () => {
+    setCleanupLoading(true);
+    setCleanupResult(null);
+    try {
+      const res = await fetch('/api/bookings/cleanup', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setCleanupResult(`Eliminate ${data.deletedCount} prenotazioni abbandonate`);
+      } else {
+        setCleanupResult('Errore durante la pulizia');
+      }
+    } catch {
+      setCleanupResult('Errore di connessione');
+    } finally {
+      setCleanupLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Welcome Message */}
@@ -129,6 +150,32 @@ export default function AdminDashboard() {
                 Open Tester
               </Link>
             </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="cursor-pointer hover:shadow-md transition-shadow">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Trash2 className="h-5 w-5 mr-2 text-sage" />
+              Pulizia Database
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              Elimina prenotazioni abbandonate (awaiting_payment &gt; 30 min).
+            </p>
+            <Button
+              className="w-full"
+              onClick={handleCleanup}
+              disabled={cleanupLoading}
+            >
+              {cleanupLoading ? 'Pulizia in corso...' : 'Pulisci ora'}
+            </Button>
+            {cleanupResult && (
+              <p className="text-sm text-center mt-2 text-muted-foreground">
+                {cleanupResult}
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>

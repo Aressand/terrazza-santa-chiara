@@ -30,6 +30,7 @@ interface BookingFormData {
   guests: string;
   specialRequests: string;
   agreeToTerms: boolean;
+  website: string; // Honeypot field
 }
 
 interface BookingFormProps {
@@ -73,7 +74,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
     country: '',
     guests: '2',
     specialRequests: '',
-    agreeToTerms: false
+    agreeToTerms: false,
+    website: '' // Honeypot field
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof BookingFormData, string>>>({});
@@ -129,6 +131,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          website: formData.website, // Honeypot field
           room_id: roomId,
           check_in: checkIn,
           check_out: checkOut,
@@ -234,6 +237,24 @@ const BookingForm: React.FC<BookingFormProps> = ({
     <div className="space-y-6">
       <div>
         <h3 className="text-xl font-playfair font-semibold mb-4">Contact Information</h3>
+
+        {/* Honeypot field - hidden from humans, bots will fill it */}
+        <input
+          type="text"
+          name="website"
+          value={formData.website}
+          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+          autoComplete="off"
+          tabIndex={-1}
+          style={{
+            position: 'absolute',
+            left: '-9999px',
+            opacity: 0,
+            height: 0,
+            width: 0,
+          }}
+          aria-hidden="true"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>

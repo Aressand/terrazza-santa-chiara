@@ -88,8 +88,8 @@ SUPABASE_SERVICE_ROLE_KEY=xxxxxxxxxxxxx    # For webhook handler
 - [ ] Dynamic sitemap.xml
 - [ ] Update robots.txt
 - [ ] Create llms.txt for LLMs
-- [ ] Form antibot component (honeypot field)
+- [X] Form antibot component (honeypot field)
 - [ ] Replace deprecated middleware with proxy pattern
-- [ ] search-result page not working
+- [X] search-result page not working
 - [ ] Some components are not translated as: select dates in booking widget in the rooms, calendar showing eng day name, number of nights in the bookign form, all the booking form.
 - [ ] Privacy policy and coockie policy

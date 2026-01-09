@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Menu, Phone, Globe } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { Dictionary } from '@/lib/i18n/types';
 
 interface HeaderProps {
@@ -23,6 +23,7 @@ const Header = ({ translations: t }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Extract current locale from pathname
   const currentLocale = pathname.split('/')[1] as 'it' | 'en';
@@ -54,7 +55,10 @@ const Header = ({ translations: t }: HeaderProps) => {
     const segments = pathname.split('/');
     segments[1] = newLocale;
     const newPath = segments.join('/');
-    router.push(newPath);
+    // Preserve query params when switching language
+    const queryString = searchParams.toString();
+    const fullPath = queryString ? `${newPath}?${queryString}` : newPath;
+    router.push(fullPath);
   };
 
   return (

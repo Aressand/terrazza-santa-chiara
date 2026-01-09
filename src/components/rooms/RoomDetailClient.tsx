@@ -19,6 +19,8 @@ interface RoomDetailClientProps {
     roomPage: Dictionary["roomPage"];
     room: RoomTranslations;
     bookingWidget: Dictionary["bookingWidget"];
+    bookingCalendar: Dictionary["bookingCalendar"];
+    bookingForm: Dictionary["bookingForm"];
   };
   images: {
     hero: string;
@@ -206,6 +208,9 @@ export default function RoomDetailClient({
                 presetCheckOut={presetCheckOut}
                 presetGuests={presetGuests}
                 translations={translations.bookingWidget}
+                calendarTranslations={translations.bookingCalendar}
+                formTranslations={translations.bookingForm}
+                lang={lang}
               />
             </div>
           </div>

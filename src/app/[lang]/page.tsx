@@ -46,7 +46,7 @@ export default async function Home({ params }: Props) {
       <JsonLd data={getLodgingBusinessSchema()} />
       <JsonLd data={getFAQSchema()} />
       <main className="min-h-screen bg-background pb-20 md:pb-0" role="main" aria-label="Terrazza Santa Chiara B&B homepage">
-        <HeroSection dictionary={dictionary} />
+        <HeroSection dictionary={dictionary} lang={lang} />
         <RoomsPreview dictionary={dictionary} lang={lang} />
         <CompetitiveAdvantages dictionary={dictionary} />
         <FeaturesPreview dictionary={dictionary} />
